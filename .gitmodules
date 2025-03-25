@@ -1,0 +1,14 @@
+[submodule "nyc_car_theft_viewer"]
+    path = apps/tethysapp-nyc_car_theft_viewer
+    url ="https://github.com/tethysplatform/tethysapp-nyc_car_theft_viewer.git"
+    branch = main
+
+[submodule "flight_tracker"]
+    path = apps/tethysapp-flight_tracker
+    url = "https://github.com/tethysplatform/tethysapp-flight_tracker.git"
+    branch = main
+
+[submodule "population_viewer"]
+    path = apps/tethysapp-population_viewer
+    url = "https://github.com/tethysplatform/tethysapp-population_viewer.git"
+    branch = main
