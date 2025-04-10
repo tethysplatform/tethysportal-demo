@@ -1,0 +1,59 @@
+image:
+  repository: gcr.io/YOUR_PROJECT_ID/tethys-custom
+  tag: latest
+  pullPolicy: IfNotPresent
+
+env:
+  TETHYS_DB_HOST: "your-postgis-service"
+  TETHYS_DB_PORT: "5432"
+  TETHYS_DB_USERNAME: "tethys_user"
+  TETHYS_DB_PASSWORD: "your_password"
+  TETHYS_GS_HOST: "geoserver.default.svc.cluster.local"
+  TETHYS_GS_PORT: "8181"
+  # ALLOWED_HOSTS: "[localhost, 127.0.0.1]"
+
+service:
+  type: ClusterIP
+  port: 80
+
+ingress:
+  enabled: true
+  className: nginx
+  hosts:
+    - host: localhost
+
+tethys:
+  port: 80
+  workspace_size: "1Gi"
+  database:
+      tethys_db_name: "tethys_platform"
+      tethys_db_username: "tethys_default"
+      tethys_db_password: "mysecretpassword"
+postgis:
+  image:
+    tag: latest
+  fullnameOverride: "tethys-postgis"
+  postgres_user: "postgres"
+  postgres_password: "mysecretpassword"
+  extra_config:
+    max_connections: "500"
+    shared_buffers: "512MB"
+    work_mem: "5MB"
+    autovacuum: "on"
+  service:
+    type: ClusterIP
+    port: 5432
+  storage_size: 1Gi
+  resources: 
+    requests:
+      cpu: 100m
+      memory: 128Mi
+    limits:
+      cpu: 1
+      memory: 4Gi
+***REMOVED***
+  fullnameOverride: "geoserver"
+  username: "admin"
+  password: "geoserver"
+  storage_size: 5Gi
+resources: {}
