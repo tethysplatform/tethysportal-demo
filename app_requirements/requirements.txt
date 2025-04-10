@@ -1,0 +1,7 @@
+geojson
+numpy
+pandas
+bokeh
+plotly
+djangorestframework
+sodapy

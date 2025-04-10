@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "tethys-portal.fullname" . }}
+  labels:
+{{ include "tethys-portal.labels" . | indent 4 }}
+spec:
+  strategy: 
+    type: {{ .Values.tethys.updateStrategy | quote }}
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: {{ include "tethys-portal.name" . }}
+      app.kubernetes.io/instance: {{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: {{ include "tethys-portal.name" . }}
+        app.kubernetes.io/instance: {{ .Release.Name }}
+    spec:
+    {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+      containers:
+        - name: tethys
+          image: tethys-portal:v5
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 80
+          env:
+            - name: POSTGRES_PASSWORD 
+              value: {{ .Values.postgis.postgres_password | quote }} 
+            - name: TETHYS_DB_NAME
+              value: {{ .Values.tethys.database.tethys_db_name | quote }}
+            - name: TETHYS_DB_USERNAME
+              value: {{ .Values.tethys.database.tethys_db_username | quote }}
+            - name: TETHYS_DB_PASSWORD
+              value: {{ .Values.tethys.database.tethys_db_password | quote }}
+            - name: TETHYS_DB_HOST
+              value: {{ .Values.postgis.fullnameOverride | quote }}
+            - name: TETHYS_DB_PORT
+              value: "5432"

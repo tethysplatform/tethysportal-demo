@@ -1,0 +1,9 @@
+dependencies:
+- name: geoserver
+  repository: oci://ghcr.io/aquaveo
+  version: 0.2.2
+- name: postgis
+  repository: oci://ghcr.io/aquaveo
+  version: 0.2.4
+digest: sha256:8abb127c27c213d5d130ce948081cce673b85f40821cb62d5cd3f8cac39d4bc9
+generated: "2025-04-09T12:04:05.017693859-06:00"
