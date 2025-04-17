@@ -1,0 +1,64 @@
+[submodule "apps/tethysapp-nyc_car_theft_viewer"]
+	path = apps/tethysapp-nyc_car_theft_viewer
+	url = https://github.com/tethysplatform/tethysapp-nyc_car_theft_viewer.git
+	branch = main
+[submodule "apps/tethysapp-flight_tracker"]
+	path = apps/tethysapp-flight_tracker
+	url = https://github.com/tethysplatform/tethysapp-flight_tracker.git
+	branch = main
+[submodule "apps/tethysapp-population_viewer"]
+	path = apps/tethysapp-population_viewer
+	url = https://github.com/tethysplatform/tethysapp-population_viewer.git
+	branch = main
+[submodule "apps/tethysapp-wildfire_tracker"]
+	path = apps/tethysapp-wildfire_tracker
+	url = https://github.com/tethysplatform/tethysapp-wildfire_tracker.git
+	branch = main
+[submodule "apps/tethysapp-layout_showcase"]
+	path = apps/tethysapp-layout_showcase
+	url = https://github.com/tethysplatform/tethysapp-layout_showcase.git
+	branch = main
+[submodule "apps/tethysapp-gizmo_showcase"]
+	path = apps/tethysapp-gizmo_showcase
+	url = https://github.com/tethysplatform/tethysapp-gizmo_showcase.git
+	branch = main
+[submodule "apps/beginner-concepts-tutorial-solution"]
+	path = apps/beginner-concepts-tutorial-solution
+	url = https://github.com/tethysplatform/tethysapp-dam_inventory.git
+	branch = beginner-solution
+[submodule "apps/intermediate-concepts-tutorial-solution"]
+	path = apps/intermediate-concepts-tutorial-solution
+	url = https://github.com/tethysplatform/tethysapp-dam_inventory.git
+	branch = intermediate-solution
+[submodule "apps/advanced-concepts-tutorial-solution"]
+	path = apps/advanced-concepts-tutorial-solution
+	url = https://github.com/tethysplatform/tethysapp-dam_inventory.git
+	branch = advanced-solution
+[submodule "apps/web-sockets-tutorial-solution"]
+	path = apps/web-sockets-tutorial-solution
+	url = https://github.com/tethysplatform/tethysapp-dam_inventory.git
+	branch = websocket-solution
+[submodule "apps/bokeh-tutorial-solution"]
+	path = apps/bokeh-tutorial-solution
+	url = https://github.com/tethysplatform/tethysapp-bokeh_tutorial.git
+	branch = master
+[submodule "apps/dask-tutorial-solution"]
+	path = apps/dask-tutorial-solution
+	url = https://github.com/tethysplatform/tethysapp-dask_tutorial.git
+	branch = master
+[submodule "apps/GEE-tutorial-solution"]
+	path = apps/GEE-tutorial-solution
+	url = https://github.com/tethysplatform/tethysapp-earth_engine.git
+	branch = master
+[submodule "apps/geoserver-tutorial-solution"]
+	path = apps/geoserver-tutorial-solution
+	url = https://github.com/tethysplatform/tethysapp-geoserver_app.git
+	branch = master
+[submodule "apps/map-layout-tutorial-solution"]
+	path = apps/map-layout-tutorial-solution
+	url = https://github.com/tethysplatform/tethysapp-map_layout_tutorial.git
+	branch = main
+[submodule "apps/thredds-tutorial-solution"]
+	path = apps/thredds-tutorial-solution
+	url = https://github.com/tethysplatform/tethysapp-thredds_tutorial.git
+	branch = master
