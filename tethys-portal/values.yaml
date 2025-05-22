@@ -1,6 +1,6 @@
 image:
-  repository: gcr.io/YOUR_PROJECT_ID/tethys-custom
-  tag: latest
+  repository: tethysplatform/tethys-demo-portal
+  tag: latest 
   pullPolicy: IfNotPresent
 
 env:
