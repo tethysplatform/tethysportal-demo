@@ -24,6 +24,8 @@ COPY app_requirements/*.txt .
 
 ARG MAMBA_DOCKERFILE_ACTIVATE=1
 
+RUN ls -R ${TETHYS_HOME}/apps
+
 RUN micromamba install --yes -c conda-forge --file requirements.txt && \
     cd ${TETHYS_HOME}/apps/tethysapp-flight_tracker/tethysapp-flight_tracker && tethys install -w -N -q && \
     cd ${TETHYS_HOME}/apps/tethysapp-gizmo_showcase && tethys install -w -N -q && \
