@@ -3,8 +3,8 @@ base:
     - pre_tethys
     - tethyscore
     - tethys_services
-    - flight_tracker
     - gizmo_showcase
     - layout_showcase
+    - flight_tracker
     - wildfire_visualizer
     - post_app
