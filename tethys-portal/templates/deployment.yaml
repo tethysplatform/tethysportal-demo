@@ -24,7 +24,7 @@ spec:
     {{- end }}
       containers:
         - name: tethys
-          image: tethys-portal:v5
+          image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
           imagePullPolicy: Never
           ports:
             - containerPort: 80
