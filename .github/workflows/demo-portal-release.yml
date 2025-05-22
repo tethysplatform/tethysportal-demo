@@ -1,0 +1,40 @@
+name: Demo Portal Stable CI
+
+on:
+  push:
+    tags:
+      - "*"
+
+env:
+  DOCKER_UPLOAD_URL: tethysplatform/tethys-demo-portal
+
+jobs:
+  docker-build:
+    name: Docker Build and Push
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Source
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Parse version from tag
+        id: version
+        uses: release-kit/semver@v1
+
+      - name: Safe Tag
+        id: safetag
+        run: |
+          full_tag="${{ steps.version.outputs.full }}";
+          # no "+" characters allowed in Docker tags
+          safe_tag="${full_tag//+/-}";
+          echo "safetag=$safe_tag" >> $GITHUB_OUTPUT;
+          echo $safe_tag;
+
+      - name: Build With Tag
+        run: |
+          docker build -t ${{ env.DOCKER_UPLOAD_URL }}:${{ steps.safetag.outputs.safetag }} .;
+
+      - name: Authenticate Docker
+        run: |
+          echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -_
