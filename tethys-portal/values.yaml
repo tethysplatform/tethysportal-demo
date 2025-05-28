@@ -1,7 +1,7 @@
 image:
   repository: tethysplatform/tethys-demo-portal
   tag: latest 
-  pullPolicy: IfNotPresent
+  pullPolicy: Always
 
 env:
   TETHYS_DB_HOST: "your-postgis-service"
