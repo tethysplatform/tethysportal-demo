@@ -8,3 +8,4 @@ base:
     - flight_tracker
     - wildfire_visualizer
     - post_app
+    - patch
