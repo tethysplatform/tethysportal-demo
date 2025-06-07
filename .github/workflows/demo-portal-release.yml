@@ -34,7 +34,7 @@ jobs:
 
       - name: Build With Tag
         run: |
-          docker build -t ${{ env.DOCKER_UPLOAD_URL }}:${{ steps.safetag.outputs.safetag }} .;
+          docker build --platform linux/arm64 -t ${{ env.DOCKER_UPLOAD_URL }}:${{ steps.safetag.outputs.safetag }} .;
 
       - name: Authenticate Docker
         run: |

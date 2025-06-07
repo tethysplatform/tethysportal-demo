@@ -25,7 +25,7 @@ jobs:
 
       - name: Build Without Tag
         run: |
-          docker build -t ${{ env.DOCKER_UPLOAD_URL }}:dev-tethys-demo-portal .;
+          docker build --platform linux/arm64 -t ${{ env.DOCKER_UPLOAD_URL }}:dev-tethys-demo-portal .;
           docker tag ${{ env.DOCKER_UPLOAD_URL }}:dev-tethys-demo-portal ${{ env.TEST_IMAGE }}:dev;
 
       - name: Upload Docker Without Tag
