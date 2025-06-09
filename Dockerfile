@@ -1,4 +1,4 @@
-FROM tethysplatform/tethys-core:4.3.6-py3.11-dj4.2
+FROM tethysplatform/tethys-core:4.3.7-py3.12-dj4.2
 
 ENV ALLOWED_HOSTS="\"[localhost, 127.0.0.1]\""
 ENV CSRF_TRUSTED_ORIGINS="\"[http://localhost, http://127.0.0.1]\""
