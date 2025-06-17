@@ -1,8 +1,5 @@
 FROM tethysplatform/tethys-core:4.3.7-py3.12-dj4.2
 
-ENV ALLOWED_HOSTS="\"[localhost, 127.0.0.1]\""
-ENV CSRF_TRUSTED_ORIGINS="\"[http://localhost, http://127.0.0.1]\""
-
 ENV GS_USERNAME="admin"
 ENV GS_PASSWORD="geoserver"
 ENV GS_SERVICE_NAME="geoserver"
@@ -18,7 +15,7 @@ ENV OPEN_SKY_PASSWORD="Password123"
 
 ENV FIRMS_API_TOKEN="4a9518ea6c93f94ecdebabba9dee6bd4"
 
-ENV NGINX_PORT=8080
+ENV NGINX_PORT=8080     
 
 COPY apps ${TETHYS_HOME}/apps
 

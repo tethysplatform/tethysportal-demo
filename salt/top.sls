@@ -8,4 +8,5 @@ base:
     - flight_tracker
     - wildfire_visualizer
     - post_app
-    - patch
+    - patch_daphne
+    - patch_nginx_conf
