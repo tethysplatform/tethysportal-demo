@@ -1,0 +1,15 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: {{ include "postgis.fullname" . }}
+  labels:
+    app.kubernetes.io/name: {{ include "postgis.name" . }}
+    helm.sh/chart: {{ include "postgis.chart" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+spec:
+  ports:
+  - port: {{ .Values.service.port | int }}
+  selector:
+    app.kubernetes.io/name: {{ include "postgis.name" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}

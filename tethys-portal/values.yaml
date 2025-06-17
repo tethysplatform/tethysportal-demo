@@ -4,17 +4,18 @@ image:
   pullPolicy: Always
 
 env:
-  TETHYS_DB_HOST: "your-postgis-service"
+  TETHYS_DB_HOST: "tethys-postgis"
   TETHYS_DB_PORT: "5432"
-  TETHYS_DB_USERNAME: "tethys_user"
-  TETHYS_DB_PASSWORD: "your_password"
+  TETHYS_DB_USERNAME: "tethys_default"
+  TETHYS_DB_PASSWORD: "mysecretpassword"
   TETHYS_GS_HOST: "geoserver.default.svc.cluster.local"
   TETHYS_GS_PORT: "8181"
-  # ALLOWED_HOSTS: "[localhost, 127.0.0.1]"
+  ALLOWED_HOSTS: '["localhost", "127.0.0.1", "demo.tethysgeoscience.org"]'
+  CSRF_TRUSTED_ORIGINS: '["http://localhost", "http://127.0.0.1", "http://demo.tethysgeoscience.org"]'
 
 service:
   type: ClusterIP
-  port: 80
+  port: 8080
 
 ingress:
   enabled: true
@@ -23,7 +24,7 @@ ingress:
     - host: localhost
 
 tethys:
-  port: 80
+  port: 8080
   workspace_size: "1Gi"
   database:
       tethys_db_name: "tethys_platform"
@@ -44,6 +45,12 @@ postgis:
     type: ClusterIP
     port: 5432
   storage_size: 1Gi
+  persistence:
+    enabled: true
+    existingClaim: ""  # Leave blank unless you have a predefined one
+    storageClassName: "standard"  # Replace with your cluster's actual storage class
+    accessMode: ReadWriteOnce
+    size: 1Gi
   resources: 
     requests:
       cpu: 100m
@@ -51,6 +58,7 @@ postgis:
     limits:
       cpu: 1
       memory: 4Gi
+  
 geoserver:
   fullnameOverride: "geoserver"
   username: "admin"

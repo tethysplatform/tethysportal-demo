@@ -1,0 +1,1 @@
+This chart was designed for use by Tethys apps, and has not been tested for usability in stand-alone mode.
