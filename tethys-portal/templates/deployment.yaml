@@ -41,3 +41,9 @@ spec:
               value: {{ .Values.postgis.fullnameOverride | quote }}
             - name: TETHYS_DB_PORT
               value: "5432"
+            - name: ALLOWED_HOSTS
+              value: "\"[{{- range .Values.ingress.hosts }}{{ .host }},{{- end }}]\""
+            - name: CSRF_TRUSTED_ORIGINS
+              value: "\"[{{- range .Values.ingress.trusted_origins }}{{ . }},{{- end }}]\""
+
+
