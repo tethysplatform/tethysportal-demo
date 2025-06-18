@@ -10,8 +10,6 @@ env:
   TETHYS_DB_PASSWORD: "mysecretpassword"
   TETHYS_GS_HOST: "geoserver.default.svc.cluster.local"
   TETHYS_GS_PORT: "8181"
-  ALLOWED_HOSTS: '["localhost", "127.0.0.1", "demo.tethysgeoscience.org"]'
-  CSRF_TRUSTED_ORIGINS: '["http://localhost", "http://127.0.0.1", "http://demo.tethysgeoscience.org"]'
 
 service:
   type: ClusterIP
@@ -22,7 +20,8 @@ ingress:
   className: nginx
   hosts:
     - host: localhost
-
+  trusted_origins:
+    - "http://demo.tethysgeoscience.org"
 tethys:
   port: 8080
   workspace_size: "1Gi"
