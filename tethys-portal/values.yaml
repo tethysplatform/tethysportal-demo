@@ -4,12 +4,15 @@ image:
   pullPolicy: Always
 
 env:
+  PORTAL_SUPERUSER_NAME: "test_admin"
+  PORTAL_SUPERUSER_PASSWORD: "wateriswet"
   TETHYS_DB_HOST: "tethys-postgis"
   TETHYS_DB_PORT: "5432"
   TETHYS_DB_USERNAME: "tethys_default"
   TETHYS_DB_PASSWORD: "mysecretpassword"
   TETHYS_GS_HOST: "geoserver.default.svc.cluster.local"
   TETHYS_GS_PORT: "8181"
+  TETHYSDASH_DB_NAME: "tethysdash_primary_db"
 
 service:
   type: ClusterIP

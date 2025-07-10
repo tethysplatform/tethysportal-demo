@@ -1,0 +1,27 @@
+*.pydevproject
+*.project
+*.egg-info
+*.class
+*.pyo
+*.pyc
+*.db
+*.sqlite
+*.DS_Store
+*__pycache__
+.idea/
+services.yml
+node_modules*
+tethysapp/tethysdash/workspaces/
+reactapp/config/production.env
+test.py
+.coverage
+launch.json
+cache
+coverage
+data
+
+tethysapp/tethysdash/public/images/plugins/*
+!tethysapp/tethysdash/public/images/plugins/Variable Input.png
+!tethysapp/tethysdash/public/images/plugins/Text.png
+!tethysapp/tethysdash/public/images/plugins/Map.png
+!tethysapp/tethysdash/public/images/plugins/Custom Image.png

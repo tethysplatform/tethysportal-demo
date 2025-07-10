@@ -29,3 +29,20 @@
     path = apps/tethysapp-gizmo_showcase
     url = https://github.com/tethysplatform/tethysapp-gizmo_showcase.git
     branch = main
+
+[submodule "tethysdash"]
+	path = apps/tethysdash
+	url = https://github.com/tethysplatform/tethysapp-tethys_dash
+
+#Tethys Dash Plugins
+[submodule "tethysdash_plugins/tethysdash_plugin_cw3e"]
+	path = tethysdash_plugins/tethysdash_plugin_cw3e
+	url = https://github.com/FIRO-Tethys/tethysdash_plugin_cw3e
+
+[submodule "tethysdash_plugins/tethysdash_plugin_usace"]
+	path = tethysdash_plugins/tethysdash_plugin_usace
+	url = https://github.com/FIRO-Tethys/tethysdash_plugin_usace
+
+[submodule "tethysdash_plugins/tethysdash_plugin_cnrfc"]
+	path = tethysdash_plugins/tethysdash_plugin_cnrfc
+	url = https://github.com/FIRO-Tethys/tethysdash_plugin_cnrfc

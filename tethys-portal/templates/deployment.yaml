@@ -45,5 +45,11 @@ spec:
               value: "\"[{{- range .Values.ingress.hosts }}{{ .host }},{{- end }}]\""
             - name: CSRF_TRUSTED_ORIGINS
               value: "\"[{{- range .Values.ingress.trusted_origins }}{{ . }},{{- end }}]\""
+            - name: PORTAL_SUPERUSER_NAME
+              value: {{ .Values.env.PORTAL_SUPERUSER_NAME | quote }}
+            - name: PORTAL_SUPERUSER_PASSWORD
+              value: {{ .Values.env.PORTAL_SUPERUSER_PASSWORD | quote }}
+            - name: TETHYSDASH_DB_NAME
+              value: {{ .Values.env.TETHYSDASH_DB_NAME | quote }}
 
 
