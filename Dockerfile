@@ -19,21 +19,32 @@ ENV NGINX_PORT=8080
 
 COPY apps ${TETHYS_HOME}/apps
 
-COPY app_requirements/*.txt .
+COPY tethysdash_plugins ${TETHYS_HOME}/tethysdash_plugins
+
+COPY app_requirements/ app_requirements/
 
 ARG MAMBA_DOCKERFILE_ACTIVATE=1
 
 RUN ls -R ${TETHYS_HOME}/apps
 
-RUN micromamba install --yes -c conda-forge --file requirements.txt && \
+RUN micromamba install --yes -c conda-forge --file app_requirements/conda_package_requirements.txt && \
     cd ${TETHYS_HOME}/apps/tethysapp-flight_tracker/tethysapp-flight_tracker && tethys install -w -N -q && \
     cd ${TETHYS_HOME}/apps/tethysapp-gizmo_showcase && tethys install -w -N -q && \
     cd ${TETHYS_HOME}/apps/tethysapp-layout_showcase && tethys install -w -N -q && \
     cd ${TETHYS_HOME}/apps/tethysapp-nyc_car_theft_viewer/tethysapp-nyc_car_theft_viewer && tethys install -w -N -q && \
     cd ${TETHYS_HOME}/apps/tethysapp-population_viewer/tethysapp-population_app && tethys install -w -N -q && \
-    cd ${TETHYS_HOME}/apps/tethysapp-wildfire_tracker/tethysapp-wildfire_visualizer && tethys install -w -N -q
+    cd ${TETHYS_HOME}/apps/tethysapp-wildfire_tracker/tethysapp-wildfire_visualizer && tethys install -w -N -q && \
+    cd ${TETHYS_HOME}/apps/tethysdash && tethys install -w -N -q
+
+RUN cd ${TETHYS_HOME}/tethysdash_plugins/tethysdash_plugin_cnrfc && pip install . && \
+    cd ${TETHYS_HOME}/tethysdash_plugins/tethysdash_plugin_cw3e && pip install . && \
+    cd ${TETHYS_HOME}/tethysdash_plugins/tethysdash_plugin_usace && pip install .
+
+RUN mkdir -p -m 777 ${TETHYS_PERSIST}/data/tethysdash
 
 ADD salt /srv/salt
 
+
 WORKDIR ${TETHYS_HOME}
+
 CMD bash run.sh
