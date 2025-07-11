@@ -1,9 +1,0 @@
-[run] 
-omit =
-   *app.py,
-   */.tethys/*,
-   */tests/*,
-   */alembic/*
-
-[report]
-skip_covered = True

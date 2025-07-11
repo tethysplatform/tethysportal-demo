@@ -30,10 +30,6 @@
     url = https://github.com/tethysplatform/tethysapp-gizmo_showcase.git
     branch = main
 
-[submodule "tethysdash"]
-	path = apps/tethysdash
-	url = https://github.com/tethysplatform/tethysapp-tethys_dash
-
 #Tethys Dash Plugins
 [submodule "tethysdash_plugins/tethysdash_plugin_cw3e"]
 	path = tethysdash_plugins/tethysdash_plugin_cw3e
