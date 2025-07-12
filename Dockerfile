@@ -38,7 +38,8 @@ RUN micromamba install --yes -c conda-forge --file app_requirements/conda_packag
 
 RUN cd ${TETHYS_HOME}/tethysdash_plugins/tethysdash_plugin_cnrfc && pip install . && \
     cd ${TETHYS_HOME}/tethysdash_plugins/tethysdash_plugin_cw3e && pip install . && \
-    cd ${TETHYS_HOME}/tethysdash_plugins/tethysdash_plugin_usace && pip install .
+    cd ${TETHYS_HOME}/tethysdash_plugins/tethysdash_plugin_usace && pip install . && \
+    cd ${TETHYS_HOME}/tethysdash_plugins/tethysdash_examples && pip install .
 
 RUN mkdir -p -m 777 ${TETHYS_PERSIST}/data/tethysdash
 
