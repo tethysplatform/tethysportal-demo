@@ -25,8 +25,6 @@ COPY app_requirements/ app_requirements/
 
 ARG MAMBA_DOCKERFILE_ACTIVATE=1
 
-RUN ls -R ${TETHYS_HOME}/apps
-
 RUN micromamba install --yes -c conda-forge --file app_requirements/conda_package_requirements.txt && \
     cd ${TETHYS_HOME}/apps/tethysapp-flight_tracker/tethysapp-flight_tracker && tethys install -w -N -q && \
     cd ${TETHYS_HOME}/apps/tethysapp-gizmo_showcase && tethys install -w -N -q && \
@@ -39,13 +37,11 @@ RUN micromamba install --yes -c conda-forge --file app_requirements/conda_packag
 RUN cd ${TETHYS_HOME}/tethysdash_plugins/tethysdash_plugin_cnrfc && pip install . && \
     cd ${TETHYS_HOME}/tethysdash_plugins/tethysdash_plugin_cw3e && pip install . && \
     cd ${TETHYS_HOME}/tethysdash_plugins/tethysdash_plugin_usace && pip install . && \
-    cd ${TETHYS_HOME}/tethysdash_plugins/tethysdash_examples && pip install . && \
-    cd ${TETHYS_HOME}/tethysdash_plugins/ciroh_plugins && pip install .
+    cd ${TETHYS_HOME}/tethysdash_plugins/tethysdash_examples && pip install .
 
 RUN mkdir -p -m 777 ${TETHYS_PERSIST}/data/tethysdash
 
 ADD salt /srv/salt
-
 
 WORKDIR ${TETHYS_HOME}
 
