@@ -44,6 +44,10 @@
 	path = tethysdash_plugins/tethysdash_plugin_usace
 	url = https://github.com/FIRO-Tethys/tethysdash_plugin_usace
 
+[submodule "tethysdash_plugins/tethysdash_plugin_cnrfc"]
+	path = tethysdash_plugins/tethysdash_plugin_cnrfc
+	url = https://github.com/FIRO-Tethys/tethysdash_plugin_cnrfc
+    
 [submodule "tethysdash_plugins/tethysdash_examples"]
 	path = tethysdash_plugins/tethysdash_examples
 	url = https://github.com/FIRO-Tethys/tethysdash_examples
