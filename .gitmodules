@@ -52,3 +52,7 @@
 	path = tethysdash_plugins/tethysdash_examples
 	url = https://github.com/FIRO-Tethys/tethysdash_examples
 	branch = main
+[submodule "tethysdash_plugins/ciroh_plugins"]
+	path = tethysdash_plugins/ciroh_plugins
+	url = https://github.com/FIRO-Tethys/ciroh_plugins
+	branch = main
