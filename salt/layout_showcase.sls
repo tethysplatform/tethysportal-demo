@@ -21,7 +21,6 @@ Link_Layout_Showcase_Geoserver:
     - shell: /bin/bash
     - unless: /bin/bash -c "[ -f "{{ TETHYS_PERSIST }}/layout_showcase_setup_complete" ];"
 
-
 Flag_Layout_Showcase_Setup_Complete:
   cmd.run:
     - name: touch {{ TETHYS_PERSIST }}/layout_showcase_setup_complete

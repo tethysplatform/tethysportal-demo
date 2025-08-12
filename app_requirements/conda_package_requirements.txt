@@ -9,3 +9,4 @@ nodejs
 pyproj
 xmltodict
 requests
+geoglows>=1.7.0

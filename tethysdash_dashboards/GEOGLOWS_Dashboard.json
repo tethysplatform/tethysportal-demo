@@ -1,0 +1,107 @@
+{
+  "name": "GEOGLOWS Dashboard",
+  "description": "testing",
+  "accessGroups": [],
+  "unrestrictedPlacement": false,
+  "image": "/static/tethysdash/images/tethys_dash.png",
+  "notes": "",
+  "gridItems": [
+    {
+      "i": "7",
+      "x": 0,
+      "y": 0,
+      "w": 36,
+      "h": 7,
+      "source": "Variable Input",
+      "args_string": {
+        "variable_name": "Country",
+        "variable_options_source": "GEOGLOWS: GEOGLOWS Map - Country",
+        "initial_value": "Egypt"
+      },
+      "metadata_string": {}
+    },
+    {
+      "i": "6",
+      "x": 75,
+      "y": 6,
+      "w": 23,
+      "h": 7,
+      "source": "Variable Input",
+      "args_string": {
+        "variable_name": "Year",
+        "variable_options_source": "GEOGLOWS: GEOGLOWS Plots - Year",
+        "initial_value": 2024
+      },
+      "metadata_string": {}
+    },
+    {
+      "i": "5",
+      "x": 55,
+      "y": 6,
+      "w": 20,
+      "h": 7,
+      "source": "Variable Input",
+      "args_string": {
+        "variable_name": "Month",
+        "variable_options_source": "GEOGLOWS: GEOGLOWS Plots - Month",
+        "initial_value": 1
+      },
+      "metadata_string": {}
+    },
+    {
+      "i": "4",
+      "x": 55,
+      "y": 0,
+      "w": 20,
+      "h": 6,
+      "source": "Variable Input",
+      "args_string": {
+        "variable_name": "Plot Name",
+        "variable_options_source": "GEOGLOWS: GEOGLOWS Plots - Plot Name",
+        "initial_value": "forecast"
+      },
+      "metadata_string": {}
+    },
+    {
+      "i": "3",
+      "x": 75,
+      "y": 0,
+      "w": 23,
+      "h": 6,
+      "source": "Variable Input",
+      "args_string": {
+        "variable_name": "River ID",
+        "variable_options_source": "text",
+        "initial_value": "110765637"
+      },
+      "metadata_string": {}
+    },
+    {
+      "i": "2",
+      "x": 54,
+      "y": 13,
+      "w": 44,
+      "h": 38,
+      "source": "geoglows_plots",
+      "args_string": {
+        "river_id": "${River ID}",
+        "plot_name": "${Plot Name}",
+        "month": "${Month}",
+        "year": "${Year}"
+      },
+      "metadata_string": {}
+    },
+    {
+      "i": "1",
+      "x": 0,
+      "y": 7,
+      "w": 54,
+      "h": 44,
+      "source": "geoglows_map",
+      "args_string": {
+        "country": "${Country}"
+      },
+      "metadata_string": {}
+    }
+  ]
+}
