@@ -30,6 +30,10 @@
     url = https://github.com/tethysplatform/tethysapp-gizmo_showcase.git
     branch = main
 
+[submodule "apps/tethysapp-wildatlas"]
+	path = apps/tethysapp-wildatlas
+	url = https://github.com/TannerFrandsen/tethysapp-wildatlas.git
+
 [submodule "apps/tethysdash"]
 	path = apps/tethysdash
 	url = https://github.com/tethysplatform/tethysapp-tethys_dash
@@ -52,3 +56,8 @@
 	path = tethysdash_plugins/tethysdash_examples
 	url = https://github.com/FIRO-Tethys/tethysdash_examples
 	branch = main
+
+[submodule "tethysdash_plugins/tethysdash_plugin_geoglows"]
+	path = tethysdash_plugins/tethysdash_plugin_geoglows
+	url = https://github.com/FIRO-Tethys/tethysdash_plugin_geoglows.git
+
