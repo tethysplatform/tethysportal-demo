@@ -8,7 +8,7 @@ Add_GEOGLOWS_Hydroviewer:
           "GEOGLOWS Hydroviewer" \
           "http://hydroviewer.geoglows.org" \
           "A web app for interacting with all components of the GEOGloWS ECMWF Streamflow Model" \
-          "{{ TETHYS_HOME }}/tethys/tethys_portal/static/tethys_portal/images/geoglows_hydroviewer_icon.jpeg"
+          "tethys_portal/images/geoglows_hydroviewer_icon.jpeg"
 
     - shell: /bin/bash
     - unless: /bin/bash -c '[ -f "{{ TETHYS_PERSIST }}/proxy_apps_setup_complete" ]'

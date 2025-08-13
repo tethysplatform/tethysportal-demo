@@ -37,8 +37,6 @@ COPY app_requirements/ app_requirements/
 
 COPY static/images/* ${TETHYS_HOME}/tethys/tethys_portal/static/tethys_portal/images
 
-COPY  apps/tethysapp-wildatlas/tethysapp-wildatlas/tethysapp/wildatlas/resources/YellowstoneNationalPark.geojson ${TETHYS_PERSIST}/media/wildatlas/app/
-
 ARG MAMBA_DOCKERFILE_ACTIVATE=1
 
 RUN micromamba install --yes -c conda-forge --file app_requirements/conda_package_requirements.txt && \
