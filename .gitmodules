@@ -33,6 +33,7 @@
 [submodule "apps/tethysapp-wildatlas"]
 	path = apps/tethysapp-wildatlas
 	url = https://github.com/TannerFrandsen/tethysapp-wildatlas.git
+    branch = main
 
 [submodule "apps/tethysdash"]
 	path = apps/tethysdash
