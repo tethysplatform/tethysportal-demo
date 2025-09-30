@@ -25,6 +25,8 @@ ENV PRIMARY_COLOR="#403f3f"
 ENV SECONDARY_COLOR="#95c798"
 ENV COPYRIGHT="Copyright © 2025 Tethys Geoscience Foundation™"
 
+ENV DEFAULT_DASHBOARD_IMAGE_PATH=${TETHYS_HOME}/apps/tethysdash/tethysapp/tethysdash/default_dashboard.png
+
 COPY apps ${TETHYS_HOME}/apps
 
 COPY tethysdash_plugins ${TETHYS_HOME}/tethysdash_plugins
