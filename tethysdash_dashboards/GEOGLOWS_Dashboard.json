@@ -1,9 +1,16 @@
 {
   "name": "GEOGLOWS Dashboard",
   "description": "testing",
-  "accessGroups": [],
+  "publicDashboard": false,
+  "userPermission": "admin",
+  "permissions": [
+    {
+      "username": "test_admin",
+      "permission": "admin"
+    }
+  ],
   "unrestrictedPlacement": false,
-  "image": "/static/tethysdash/images/tethys_dash.png",
+  "owner": "test_admin",
   "notes": "",
   "gridItems": [
     {
