@@ -16,7 +16,7 @@ Run_Collect_Plugin_Static_Script:
 
 Run_Install_Dashboards_Script:
   cmd.run:
-    - name: "tethys manage shell < {{ TETHYS_HOME }}/tethysdash_dashboards/install_dashboards.py"
+    - name: "cd {{ TETHYS_HOME }}/tethysdash_dashboards && tethys manage shell < install_dashboards.py"
     - shell: /bin/bash
     - unless: /bin/bash -c "[ -f "{{ TETHYS_PERSIST }}/tethys_dash_setup_complete" ];"
 
