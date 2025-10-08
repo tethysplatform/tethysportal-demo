@@ -1,16 +1,16 @@
 {
   "name": "GEOGLOWS Dashboard",
-  "description": "testing",
-  "publicDashboard": false,
+  "description": "GEOGLOWS Dashboard",
+  "publicDashboard": true,
   "userPermission": "admin",
   "permissions": [
     {
-      "username": "test_admin",
+      "username": "tethys_admin",
       "permission": "admin"
     }
   ],
   "unrestrictedPlacement": false,
-  "owner": "test_admin",
+  "owner": "tethys_admin",
   "notes": "",
   "gridItems": [
     {

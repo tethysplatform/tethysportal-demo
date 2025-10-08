@@ -4,8 +4,8 @@ image:
   pullPolicy: Always
 
 env:
-  PORTAL_SUPERUSER_NAME: "test_admin"
-  PORTAL_SUPERUSER_PASSWORD: "wateriswet"
+  PORTAL_SUPERUSER_NAME: "tethys_admin"
+  PORTAL_SUPERUSER_PASSWORD: "wateriswet123"
   TETHYS_DB_HOST: "tethys-postgis"
   TETHYS_DB_PORT: "5432"
   TETHYS_DB_USERNAME: "tethys_default"
