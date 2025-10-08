@@ -27,6 +27,28 @@ ENV COPYRIGHT="Copyright © 2025 Tethys Geoscience Foundation™"
 
 ENV DEFAULT_DASHBOARD_IMAGE_PATH=${TETHYS_HOME}/apps/tethysdash/tethysapp/tethysdash/default_dashboard.png
 
+ARG TETHYS_APP_ROOT_URL="/apps/tethysdash/"
+ARG TETHYS_LOADER_DELAY="500"
+
+ENV TETHYS_DASH_APP_SRC_ROOT=${TETHYS_HOME}/apps/tethysdash
+ENV DEV_REACT_CONFIG="${TETHYS_DASH_APP_SRC_ROOT}/reactapp/config/development.env"
+ENV PROD_REACT_CONFIG="${TETHYS_DASH_APP_SRC_ROOT}/reactapp/config/production.env"
+
+# Install NPM with NVM
+ENV NVM_DIR=/usr/local/nvm
+ENV NODE_VERSION=20.12.2
+RUN mkdir -p ${NVM_DIR} \
+  && curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh | /bin/bash \
+  && . ${NVM_DIR}/nvm.sh \
+  && nvm install ${NODE_VERSION} \
+  && nvm alias default ${NODE_VERSION} \
+  && nvm use default
+
+ENV NODE_VERSION_DIR=${NVM_DIR}/versions/node/v${NODE_VERSION}
+ENV NODE_PATH=${NODE_VERSION_DIR}/lib/node_modules
+ENV PATH=${NODE_VERSION_DIR}/bin:$PATH
+ENV NPM=${NODE_VERSION_DIR}/bin/npm
+
 COPY apps ${TETHYS_HOME}/apps
 
 COPY tethysdash_plugins ${TETHYS_HOME}/tethysdash_plugins
@@ -40,15 +62,22 @@ COPY static/images/* ${TETHYS_HOME}/tethys/tethys_portal/static/tethys_portal/im
 ARG MAMBA_DOCKERFILE_ACTIVATE=1
 
 RUN micromamba install --yes -c conda-forge --file app_requirements/conda_package_requirements.txt && \
-    pip install --no-cache-dir -r app_requirements/pip_package_requirements.txt && \
-    cd ${TETHYS_HOME}/apps/tethysapp-flight_tracker/tethysapp-flight_tracker && tethys install -w -N -q && \
+    pip install --no-cache-dir -r app_requirements/pip_package_requirements.txt
+
+RUN cd ${TETHYS_HOME}/apps/tethysapp-flight_tracker/tethysapp-flight_tracker && tethys install -w -N -q && \
     cd ${TETHYS_HOME}/apps/tethysapp-gizmo_showcase && tethys install -w -N -q && \
     cd ${TETHYS_HOME}/apps/tethysapp-layout_showcase && tethys install -w -N -q && \
     cd ${TETHYS_HOME}/apps/tethysapp-nyc_car_theft_viewer/tethysapp-nyc_car_theft_viewer && tethys install -w -N -q && \
     cd ${TETHYS_HOME}/apps/tethysapp-population_viewer/tethysapp-population_app && tethys install -w -N -q && \
     cd ${TETHYS_HOME}/apps/tethysapp-wildfire_tracker/tethysapp-wildfire_visualizer && tethys install -w -N -q && \
-    cd ${TETHYS_HOME}/apps/tethysapp-wildatlas/tethysapp-wildatlas && tethys install -w -N -q && \
-    cd ${TETHYS_HOME}/apps/tethysdash && tethys install -w -N -q
+    cd ${TETHYS_HOME}/apps/tethysapp-wildatlas/tethysapp-wildatlas && tethys install -w -N -q
+
+RUN mv ${DEV_REACT_CONFIG} ${PROD_REACT_CONFIG} && \
+    sed -i "s#TETHYS_DEBUG_MODE.*#TETHYS_DEBUG_MODE = ${TETHYS_DEBUG_MODE}#g" ${PROD_REACT_CONFIG} && \
+    sed -i "s#TETHYS_LOADER_DELAY.*#TETHYS_LOADER_DELAY = ${TETHYS_LOADER_DELAY}#g" ${PROD_REACT_CONFIG} && \
+    sed -i "s#TETHYS_PORTAL_HOST.*#TETHYS_PORTAL_HOST = ${TETHYS_PORTAL_HOST}#g" ${PROD_REACT_CONFIG} && \
+    sed -i "s#TETHYS_APP_ROOT_URL.*#TETHYS_APP_ROOT_URL = ${TETHYS_APP_ROOT_URL}#g" ${PROD_REACT_CONFIG} && \
+    cd ${TETHYS_HOME}/apps/tethysdash && npm install && npm run build && tethys install -w -N -q
 
 RUN cd ${TETHYS_HOME}/tethysdash_plugins/tethysdash_plugin_cnrfc && pip install . && \
     cd ${TETHYS_HOME}/tethysdash_plugins/tethysdash_plugin_cw3e && pip install . && \
@@ -65,4 +94,3 @@ ADD salt /srv/salt
 WORKDIR ${TETHYS_HOME}
 
 CMD bash run.sh
-
