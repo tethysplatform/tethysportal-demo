@@ -8,11 +8,14 @@ Link_TethysDash_PostGIS_Service:
     - shell: /bin/bash
     - unless: /bin/bash -c "[ -f "{{ TETHYS_PERSIST }}/tethys_dash_setup_complete" ];"
 
-Run_Collect_Plugin_Static_Script:
+Collect_Plugin_Metadata:
   cmd.run:
-    - name: "tethys manage shell < {{ TETHYS_HOME }}/apps/tethysdash/tethysapp/tethysdash/collect_plugin_static.py"
-    - shell: /bin/bash
-    - unless: /bin/bash -c "[ -f "{{ TETHYS_PERSIST }}/tethys_dash_setup_complete" ];"
+  - name: |
+      SCRIPT_DIR=$(dirname $(python -c 'import tethysapp.tethysdash as m; print(m.__file__)'))
+      cd $SCRIPT_DIR
+      python collect_plugin_static.py
+  - shell: /bin/bash
+  - cwd: /
 
 Run_Install_Dashboards_Script:
   cmd.run:
