@@ -3,7 +3,7 @@ FROM tethysplatform/tethys-core:4.3.7-py3.12-dj4.2
 ENV GS_USERNAME="admin"
 ENV GS_PASSWORD="geoserver"
 ENV GS_SERVICE_NAME="geoserver"
-ENV GS_SERVICE_HOST="http://localhost"
+ENV GS_SERVICE_HOST="https://demo.tethysgeoscience.org"
 ENV GS_SERVICE_PORT="8080"
 
 ENV PERSISTENT_SERVICE_NAME="tethys_postgis"
