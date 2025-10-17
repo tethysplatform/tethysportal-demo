@@ -1,0 +1,46 @@
+name: Demo Portal Release Deploy
+
+on:
+  workflow_run:
+    workflows: ["Demo Portal Stable CI"]
+    types:
+      - completed
+
+env:
+  DOCKER_REPO: tethysplatform/tethys-demo-portal
+  HELM_RELEASE: tethys
+  HELM_CHART_PATH: ./tethys-portal
+  NAMESPACE: demo
+
+jobs:
+  deploy:
+    name: Deploy Tagged Release to GKE
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Extract tag name from triggering workflow
+        id: vars
+        run: |
+          tag_name=$(jq -r '.workflow_run.head_branch' "$GITHUB_EVENT_PATH")
+          echo "tag_name=$tag_name" >> "$GITHUB_OUTPUT"
+
+      - name: Authenticate with GKE
+        uses: google-github-actions/get-gke-credentials@v2
+        with:
+          cluster_name: ${{ secrets.GKE_CLUSTER_NAME }}
+          location: ${{ secrets.GKE_LOCATION }}
+          project_id: ${{ secrets.GCP_PROJECT_ID }}
+          credentials: ${{ secrets.GCP_SA_KEY }}
+
+      - name: Deploy with Helm
+        run: |
+          helm upgrade --install ${{ env.HELM_RELEASE }} ${{ env.HELM_CHART_PATH }} \
+            -n ${{ env.NAMESPACE }} --create-namespace \
+            --set image.repository=${{ env.DOCKER_REPO }} \
+            --set image.tag=${{ steps.vars.outputs.tag_name }}

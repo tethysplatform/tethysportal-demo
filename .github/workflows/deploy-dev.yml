@@ -1,0 +1,58 @@
+name: Demo Portal Dev Deploy
+
+on:
+  workflow_run:
+    workflows: ["Demo Portal Development CI"]
+    types:
+      - completed
+
+  workflow_dispatch:
+    inputs:
+      image_tag:
+        description: 'Docker image tag to deploy (defaults to latest)'
+        required: false
+        default: 'latest'
+
+env:
+  DOCKER_REPO: tethysplatform/tethys-demo-portal
+  HELM_RELEASE: tethys
+  HELM_CHART_PATH: ./tethys-portal
+  NAMESPACE: demo
+
+jobs:
+  deploy:
+    name: Deploy Latest Dev Image to GKE
+    if: ${{ github.event.workflow_run.conclusion == 'success' || github.event_name == 'workflow_dispatch' }}
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Determine image tag
+        id: vars
+        run: |
+          if [[ "${GITHUB_EVENT_NAME}" == "workflow_dispatch" ]]; then
+            tag_name="${{ github.event.inputs.image_tag }}"
+          else
+            tag_name="latest"
+          fi
+          echo "Using image tag: $tag_name"
+          echo "tag_name=$tag_name" >> "$GITHUB_OUTPUT"
+
+      - name: Authenticate with GKE
+        uses: google-github-actions/get-gke-credentials@v2
+        with:
+          cluster_name: ${{ secrets.GKE_CLUSTER_NAME }}
+          location: ${{ secrets.GKE_LOCATION }}
+          project_id: ${{ secrets.GCP_PROJECT_ID }}
+          credentials: ${{ secrets.GCP_SA_KEY }}
+
+      - name: Deploy with Helm
+        run: |
+          helm upgrade --install ${{ env.HELM_RELEASE }} ${{ env.HELM_CHART_PATH }} \
+            -n ${{ env.NAMESPACE }} --create-namespace \
+            --set image.repository=${{ env.DOCKER_REPO }} \
+            --set image.tag=${{ steps.vars.outputs.tag_name }}
