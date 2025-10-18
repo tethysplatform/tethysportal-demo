@@ -22,7 +22,6 @@ env:
 jobs:
   deploy:
     name: Deploy Latest Dev Image to GKE
-    if: ${{ github.event.workflow_run.conclusion == 'success' || github.event_name == 'workflow_dispatch' }}
     runs-on: ubuntu-latest
 
     steps:
@@ -34,7 +33,7 @@ jobs:
       - name: Determine image tag
         id: vars
         run: |
-          if [[ "${GITHUB_EVENT_NAME}" == "workflow_dispatch" ]]; then
+          if [ "${GITHUB_EVENT_NAME:-}" = "workflow_dispatch" ]; then
             tag_name="${{ github.event.inputs.image_tag }}"
           else
             tag_name="latest"
@@ -42,17 +41,22 @@ jobs:
           echo "Using image tag: $tag_name"
           echo "tag_name=$tag_name" >> "$GITHUB_OUTPUT"
 
-      - name: Authenticate with GKE
+      - name: Authenticate with Google Cloud
+        uses: google-github-actions/auth@v2
+        with:
+          credentials_json: ${{ secrets.GCP_SA_KEY }}
+
+      - name: Get GKE credentials
         uses: google-github-actions/get-gke-credentials@v2
         with:
           cluster_name: ${{ secrets.GKE_CLUSTER_NAME }}
           location: ${{ secrets.GKE_LOCATION }}
           project_id: ${{ secrets.GCP_PROJECT_ID }}
-          credentials: ${{ secrets.GCP_SA_KEY }}
 
       - name: Deploy with Helm
         run: |
           helm upgrade --install ${{ env.HELM_RELEASE }} ${{ env.HELM_CHART_PATH }} \
             -n ${{ env.NAMESPACE }} --create-namespace \
             --set image.repository=${{ env.DOCKER_REPO }} \
-            --set image.tag=${{ steps.vars.outputs.tag_name }}
+            --set image.tag=${{ steps.vars.outputs.tag_name }} \
+            --set image.pullPolicy=Always
