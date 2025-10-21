@@ -3,8 +3,7 @@ name: Demo Portal Release Deploy
 on:
   workflow_run:
     workflows: ["Demo Portal Stable CI"]
-    types:
-      - completed
+    types: [completed]
 
 env:
   DOCKER_REPO: tethysplatform/tethys-demo-portal
@@ -24,11 +23,11 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Get Tag Name
+      - name: Set Tag Name
         id: vars
         run: |
-          tag_name=$(jq -r '.workflow_run.display_title' "$GITHUB_EVENT_PATH")
-          echo "Using tag: $tag_name"
+          tag_name=$(jq -r '.workflow_run.head_branch' "$GITHUB_EVENT_PATH" | sed 's/^refs\/tags\///')
+          echo "Using image tag: $tag_name"
           echo "tag_name=$tag_name" >> "$GITHUB_OUTPUT"
 
       - name: Authenticate with Google Cloud
@@ -43,9 +42,16 @@ jobs:
           location: ${{ secrets.GKE_LOCATION }}
           project_id: ${{ secrets.GCP_PROJECT_ID }}
 
-      - name: Deploy with Helm
+      - name: Install Helm
+        run: |
+          curl -sSL https://get.helm.sh/helm-v3.15.2-linux-amd64.tar.gz -o helm.tgz
+          tar -xzf helm.tgz
+          sudo mv linux-amd64/helm /usr/local/bin/helm
+
+      - name: Deploy Tagged Image to GKE
         run: |
           helm upgrade --install ${{ env.HELM_RELEASE }} ${{ env.HELM_CHART_PATH }} \
             -n ${{ env.NAMESPACE }} --create-namespace \
+            -f values.yaml \
             --set image.repository=${{ env.DOCKER_REPO }} \
-            --set image.tag=${{ steps.vars.outputs.tag_name }} \
+            --set image.tag=${{ steps.vars.outputs.tag_name }}
