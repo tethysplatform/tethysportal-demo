@@ -48,12 +48,10 @@ jobs:
       - name: Configure GKE credentials
         uses: google-github-actions/get-gke-credentials@v3
         with:
-          use_connect_gateway: true
+          # use_connect_gateway: true
           cluster_name: ${{ secrets.GKE_CLUSTER_NAME }}
           location: ${{ secrets.GKE_LOCATION }}
-          project_id: ${{ secrets.GCP_PROJECT_ID }}
-          fleet_membership_name: projects/${{ secrets.GCP_PROJECT_ID }}/locations/us-central1/memberships/demo
-   
+          project_id: ${{ secrets.GCP_PROJECT_ID }}   
 
       - name: Deploy to GKE with Helm
         run: |
