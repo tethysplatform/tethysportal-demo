@@ -7,7 +7,7 @@ on:
 
 env:
   DOCKER_REPO: tethysplatform/tethys-demo-portal
-  HELM_RELEASE: tethys
+  HELM_RELEASE: tethys-portal
   HELM_CHART_PATH: ./tethys-portal
   NAMESPACE: demo
 
