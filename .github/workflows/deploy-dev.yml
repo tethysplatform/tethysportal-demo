@@ -9,10 +9,15 @@ on:
         default: 'latest'
 
 env:
-  DOCKER_REPO: tethysplatform/tethys-demo-portal
-  HELM_RELEASE: tethys-portal
-  HELM_CHART_PATH: ./tethys-portal
-  NAMESPACE: demo
+    PROJECT_ID: tethys-demo-portal-461216
+    REGION: us-central1
+    CLUSTER_NAME: demo
+    DOCKER_REPO: tethysplatform/tethys-demo-portal
+    HELM_RELEASE: tethys-portal
+    HELM_CHART_PATH: ./tethys-portal
+    NAMESPACE: demo
+    WORKLOAD_IDENTITY_PROVIDER: projects/440410410956/locations/global/workloadIdentityPools/github-actions/providers/github
+
 
 jobs:
   deploy:
@@ -40,20 +45,27 @@ jobs:
           tar -xzf helm.tgz
           sudo mv linux-amd64/helm /usr/local/bin/helm
 
-      - name: Authenticate to Google Cloud
+      - name: Authenticate via Workload Identity Federation
         uses: google-github-actions/auth@v2
         with:
-          credentials_json: ${{ secrets.GCP_SA_KEY }}
+          workload_identity_provider: ${{ env.WORKLOAD_IDENTITY_PROVIDER }}
+          service_account: demo-portal-deployer@${{ env.PROJECT_ID }}.iam.gserviceaccount.com
 
-      - name: Configure GKE credentials
+      - name: Configure GKE credentials via Connect Gateway
         uses: google-github-actions/get-gke-credentials@v3
         with:
           use_connect_gateway: true
-          cluster_name: ${{ secrets.GKE_CLUSTER_NAME }}
-          location: ${{ secrets.GKE_LOCATION }}
-          project_id: ${{ secrets.GCP_PROJECT_ID }}   
+          cluster_name: ${{ env.CLUSTER_NAME }}
+          location: ${{ env.REGION }}
+          project_id: ${{ env.PROJECT_ID }}
+          fleet_project_id: ${{ env.PROJECT_ID }}
 
-      - name: Deploy to GKE with Helm
+      - name: Verify cluster access
+        run: |
+          kubectl version --short
+          kubectl get nodes
+
+      - name: Deploy with Helm
         run: |
           helm upgrade --install ${{ env.HELM_RELEASE }} ${{ env.HELM_CHART_PATH }} \
             -n ${{ env.NAMESPACE }} --create-namespace \
