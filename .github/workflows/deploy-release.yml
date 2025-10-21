@@ -42,6 +42,7 @@ jobs:
           cluster_name: ${{ secrets.GKE_CLUSTER_NAME }}
           location: ${{ secrets.GKE_LOCATION }}
           project_id: ${{ secrets.GCP_PROJECT_ID }}
+          fleet_membership_name: demo   
 
       - name: Install Helm
         run: |
