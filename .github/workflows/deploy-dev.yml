@@ -1,11 +1,6 @@
 name: Demo Portal Dev Deploy
 
 on:
-  workflow_run:
-    workflows: ["Demo Portal Development CI"]
-    types:
-      - completed
-
   workflow_dispatch:
     inputs:
       image_tag:
