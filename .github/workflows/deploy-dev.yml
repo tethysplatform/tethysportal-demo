@@ -9,15 +9,13 @@ on:
         default: 'latest'
 
 env:
-    PROJECT_ID: tethys-demo-portal-461216
-    REGION: us-central1
-    CLUSTER_NAME: demo
-    DOCKER_REPO: tethysplatform/tethys-demo-portal
-    HELM_RELEASE: tethys-portal
-    HELM_CHART_PATH: ./tethys-portal
-    NAMESPACE: demo
-    WORKLOAD_IDENTITY_PROVIDER: projects/440410410956/locations/global/workloadIdentityPools/github-actions/providers/github
-
+  PROJECT_ID: tethys-demo-portal-461216
+  REGION: us-central1
+  CLUSTER_NAME: demo
+  DOCKER_REPO: tethysplatform/tethys-demo-portal
+  HELM_RELEASE: tethys-portal
+  HELM_CHART_PATH: ./tethys-portal
+  NAMESPACE: demo
 
 jobs:
   deploy:
@@ -33,7 +31,7 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Set image tag
+      - name: Set Image Tag
         id: vars
         run: |
           if [ "${GITHUB_EVENT_NAME}" = "workflow_dispatch" ]; then
@@ -42,37 +40,35 @@ jobs:
             echo "tag_name=latest" >> $GITHUB_OUTPUT
           fi
 
-      - name: Authenticate to Google Cloud
+      - name: Install Helm
+        run: |
+          curl -sSL https://get.helm.sh/helm-v3.15.2-linux-amd64.tar.gz -o helm.tgz
+          tar -xzf helm.tgz
+          sudo mv linux-amd64/helm /usr/local/bin/helm
+
+      - name: Authenticate via Workload Identity Federation
         uses: google-github-actions/auth@v2
         with:
-          credentials_json: ${{ secrets.GCP_SA_KEY }}
-
-      - name: Setup gcloud CLI
-        uses: google-github-actions/setup-gcloud@v2
-        with:
-          project_id: ${{ secrets.GCP_PROJECT_ID }}
-
-      - name: Install GKE Auth Plugin
-        run: |
-          gcloud components install gke-gcloud-auth-plugin -q
-          echo "export USE_GKE_GCLOUD_AUTH_PLUGIN=True" >> $GITHUB_ENV
+          workload_identity_provider: ${{ secrets.GCP_WIF_PROVIDER }}
+          service_account: ${{ secrets.GCP_DEPLOYER_SA }}
 
       - name: Configure GKE credentials
-        run: |
-          gcloud container clusters get-credentials demo \
-            --region us-central1 \
-            --project ${{ secrets.GCP_PROJECT_ID }}
+        uses: google-github-actions/get-gke-credentials@v3
+        with:
+          cluster_name: ${{ env.CLUSTER_NAME }}
+          location: ${{ env.REGION }}
+          project_id: ${{ env.PROJECT_ID }}
 
       - name: Verify cluster access
         run: |
-          kubectl version
+          kubectl version --short
           kubectl get nodes
 
       - name: Deploy via Helm
         run: |
-          helm upgrade --install tethys-portal ./tethys-portal \
-            -n demo --create-namespace \
-            -f ./tethys-portal/values.yaml \
-            --set image.repository=tethysplatform/tethys-demo-portal \
-            --set image.tag=${{ github.event.inputs.image_tag || 'latest' }} \
+          helm upgrade --install ${{ env.HELM_RELEASE }} ${{ env.HELM_CHART_PATH }} \
+            -n ${{ env.NAMESPACE }} --create-namespace \
+            -f ${{ env.HELM_CHART_PATH }}/values.yaml \
+            --set image.repository=${{ env.DOCKER_REPO }} \
+            --set image.tag=${{ steps.vars.outputs.tag_name }} \
             --set rolloutTrigger=$(date +%s)
