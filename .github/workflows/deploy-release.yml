@@ -13,13 +13,15 @@ env:
     HELM_RELEASE: tethys-portal
     HELM_CHART_PATH: ./tethys-portal
     NAMESPACE: demo
-    WORKLOAD_IDENTITY_PROVIDER: projects/440410410956/locations/global/workloadIdentityPools/github-actions/providers/github
 
 jobs:
   deploy:
     name: Deploy Tagged Release to GKE
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
     
 
     steps:
@@ -41,20 +43,11 @@ jobs:
           tar -xzf helm.tgz
           sudo mv linux-amd64/helm /usr/local/bin/helm
 
-      - name: Authenticate to Google Cloud
+      - name: Authenticate via Workload Identity Federation
         uses: google-github-actions/auth@v2
         with:
-          credentials_json: ${{ secrets.GCP_SA_KEY }}
-
-      - name: Setup gcloud CLI
-        uses: google-github-actions/setup-gcloud@v2
-        with:
-          project_id: ${{ secrets.GCP_PROJECT_ID }}
-
-      - name: Install GKE Auth Plugin
-        run: |
-          gcloud components install gke-gcloud-auth-plugin -q
-          echo "export USE_GKE_GCLOUD_AUTH_PLUGIN=True" >> $GITHUB_ENV
+          workload_identity_provider: ${{ secrets.GCP_WIF_PROVIDER }}
+          service_account: ${{ secrets.GCP_DEPLOYER_SA }}
 
       - name: Configure GKE credentials
         run: |
