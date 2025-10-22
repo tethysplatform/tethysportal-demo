@@ -59,6 +59,7 @@ jobs:
           location: ${{ env.REGION }}
           project_id: ${{ env.PROJECT_ID }}
           use_connect_gateway: true
+          fleet_membership_name: demo
 
       - name: Verify cluster access
         run: |
