@@ -50,10 +50,13 @@ jobs:
           service_account: ${{ secrets.GCP_DEPLOYER_SA }}
 
       - name: Configure GKE credentials
-        run: |
-          gcloud container clusters get-credentials demo \
-            --region us-central1 \
-            --project ${{ secrets.GCP_PROJECT_ID }}
+        uses: google-github-actions/get-gke-credentials@v3
+        with:
+          cluster_name: ${{ env.CLUSTER_NAME }}
+          location: ${{ env.REGION }}
+          project_id: ${{ env.PROJECT_ID }}
+          use_connect_gateway: true
+          fleet_project_id: ${{ env.PROJECT_ID }}
 
       - name: Verify cluster access
         run: |
