@@ -56,7 +56,7 @@ jobs:
           location: ${{ env.REGION }}
           project_id: ${{ env.PROJECT_ID }}
           use_connect_gateway: true
-          fleet_membership_name: demo
+          fleet_membership_name: projects/${{ env.PROJECT_ID }}/locations/${{ env.REGION }}/memberships/${{ env.CLUSTER_NAME }}
 
       - name: Verify cluster access
         run: |
