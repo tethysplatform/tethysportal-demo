@@ -80,3 +80,5 @@ postgis:
       memory: 8Gi
     limits:
       memory: 10Gi
+  nodeSelector:
+    cloud.google.com/gke-nodepool: "geoserver-pool"
