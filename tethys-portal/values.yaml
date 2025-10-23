@@ -76,8 +76,7 @@ postgis:
   storage_size: 5Gi
   resources: 
     requests:
-      cpu: 2
-      memory: 2Gi
+      cpu: 4
+      memory: 8Gi
     limits:
-      cpu: 2
-      memory: 2Gi
+      memory: 10Gi
