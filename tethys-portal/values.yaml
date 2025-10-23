@@ -77,8 +77,8 @@ postgis:
   resources: 
     requests:
       cpu: 4
-      memory: 8Gi
+      memory: 2Gi
     limits:
-      memory: 10Gi
-  nodeSelector:
-    cloud.google.com/gke-nodepool: "geoserver-pool"
+      memory: 4Gi
+  # nodeSelector:
+  #   cloud.google.com/gke-nodepool: "geoserver-pool"
