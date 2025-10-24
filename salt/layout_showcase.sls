@@ -3,13 +3,7 @@
 
 {% set OPENCAGEDATA_API_KEY = salt['environ.get']('OPENCAGEDATA_API_KEY') %}
 
-{% set GEOSERVER_SERVICE_USERNAME = salt['environ.get']('GS_USERNAME') %}
-{% set GEOSERVER_SERVICE_PASSWORD = salt['environ.get']('GS_PASSWORD') %}
 {% set GEOSERVER_SERVICE_NAME = salt['environ.get']('GS_SERVICE_NAME') %}
-{% set GEOSERVER_SERVICE_HOST = salt['environ.get']('GS_SERVICE_HOST') %}
-{% set GEOSERVER_SERVICE_PORT = salt['environ.get']('GS_SERVICE_PORT') %}
-{% set GEOSERVER_SERVICE_PUBLIC_ENDPOINT = GEOSERVER_SERVICE_HOST + ':' + GEOSERVER_SERVICE_PORT + '/geoserver/rest' %}
-{% set GEOSERVER_SERVICE_ENDPOINT = GEOSERVER_SERVICE_USERNAME + ':' + GEOSERVER_SERVICE_PASSWORD + '@' + GEOSERVER_SERVICE_PUBLIC_ENDPOINT %}
 
 Set_Layout_Showcase_Geocode_Api_Key:
   cmd.run:
