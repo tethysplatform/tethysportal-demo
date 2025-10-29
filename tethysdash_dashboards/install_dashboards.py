@@ -13,7 +13,6 @@ log = logging.getLogger("install_dashboards")
 
 log.info(" Starting install_dashboards.py ")
 
-
 def convert_json_to_string(contents):
     if isinstance(contents, (dict, list)):
         return json.dumps(contents, separators=(",", ":"), ensure_ascii=False)
