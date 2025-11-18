@@ -70,4 +70,14 @@ jobs:
             -f ./tethys-portal/values.yaml \
             --set image.repository=tethysplatform/tethys-demo-portal \
             --set image.tag=${{ github.event.inputs.image_tag || 'latest' }} \
+            --set env.PORTAL_SUPERUSER_NAME="${{ secrets.PORTAL_SUPERUSER_NAME }}" \
+            --set env.PORTAL_SUPERUSER_PASSWORD="${{ secrets.PORTAL_SUPERUSER_PASSWORD }}" \
+            --set env.TETHYS_DB_USERNAME="${{ secrets.TETHYS_DB_USERNAME }}" \
+            --set env.TETHYS_DB_PASSWORD="${{ secrets.TETHYS_DB_PASSWORD }}" \
+            --set tethys.database.tethys_db_username="${{ secrets.TETHYS_DB_USERNAME }}" \
+            --set tethys.database.tethys_db_password="${{ secrets.TETHYS_DB_PASSWORD }}" \
+            --set postgis.postgres_user="${{ secrets.POSTGRES_USERNAME }}" \
+            --set postgis.postgres_password="${{ secrets.POSTGRES_PASSWORD }}" \
+            --set geoserver.username="${{ secrets.GEOSERVER_USERNAME }}" \
+            --set geoserver.password="${{ secrets.GEOSERVER_PASSWORD }}" \
             --set rolloutTrigger=$(date +%s)

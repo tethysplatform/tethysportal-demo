@@ -4,12 +4,12 @@ image:
   pullPolicy: Always
 
 env:
-  PORTAL_SUPERUSER_NAME: "tethys_admin"
-  PORTAL_SUPERUSER_PASSWORD: "wateriswet123"
+  PORTAL_SUPERUSER_NAME: ""
+  PORTAL_SUPERUSER_PASSWORD: ""
   TETHYS_DB_HOST: "tethys-postgis"
   TETHYS_DB_PORT: "5432"
-  TETHYS_DB_USERNAME: "tethys_default"
-  TETHYS_DB_PASSWORD: "mysecretpassword"
+  TETHYS_DB_USERNAME: "" 
+  TETHYS_DB_PASSWORD: "" 
   TETHYS_GS_HOST: "geoserver.default.svc.cluster.local"
   TETHYS_GS_PORT: "8181"
   TETHYSDASH_DB_NAME: "tethysdash_primary_db"
@@ -38,14 +38,14 @@ tethys:
   workspace_size: "1Gi"
   database:
       tethys_db_name: "tethys_platform"
-      tethys_db_username: "tethys_default"
-      tethys_db_password: "mysecretpassword"
+      tethys_db_username: ""
+      tethys_db_password: ""
 postgis:
   image:
     tag: latest
   fullnameOverride: "tethys-postgis"
-  postgres_user: "postgres"
-  postgres_password: "mysecretpassword"
+  postgres_user: ""
+  postgres_password: ""
   extra_config:
     max_connections: "500"
     shared_buffers: "512MB"
@@ -71,8 +71,8 @@ postgis:
   
 ***REMOVED***
   fullnameOverride: "geoserver"
-  username: "admin"
-  password: "geoserver"
+***REMOVED***
+***REMOVED***
   storage_size: 5Gi
   resources: 
     requests:
