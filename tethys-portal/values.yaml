@@ -69,10 +69,10 @@ postgis:
       cpu: 1
       memory: 4Gi
   
-***REMOVED***
+geoserver:
   fullnameOverride: "geoserver"
-***REMOVED***
-***REMOVED***
+  username: ""
+  password: ""
   storage_size: 5Gi
   resources: 
     requests:
