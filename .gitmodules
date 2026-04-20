@@ -62,3 +62,6 @@
 	path = tethysdash_plugins/tethysdash_plugin_geoglows
 	url = https://github.com/FIRO-Tethys/tethysdash_plugin_geoglows.git
 
+[submodule "tethysdash_plugins/tethysdash_plugin_ciroh"]
+	path = tethysdash_plugins/tethysdash_plugin_ciroh
+	url = https://github.com/FIRO-Tethys/ciroh_plugins
