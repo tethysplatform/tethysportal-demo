@@ -5,7 +5,6 @@ bokeh
 plotly
 djangorestframework
 sodapy
-nodejs
 pyproj
 xmltodict
 requests
