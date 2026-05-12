@@ -1,0 +1,50 @@
+name: Update Submodules
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  update-submodules:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository with submodules
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          token: ${{ secrets.GITHUB_TOKEN }}
+          submodules: recursive
+          fetch-depth: 0
+
+      - name: Commit configuration
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+
+      - name: Update submodules
+        run: |
+          git submodule sync --recursive
+          git submodule update --init --recursive --remote
+
+      - name: Check for changes
+        id: changes
+        run: |
+          if [[ -n $(git status --porcelain) ]]; then
+            echo "changes=true" >> $GITHUB_OUTPUT
+          else
+            echo "changes=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Commit updated submodules
+        if: steps.changes.outputs.changes == 'true'
+        run: |
+          git add .
+          git commit -m "Updated submodules"
+
+      - name: Push changes
+        if: steps.changes.outputs.changes == 'true'
+        run: |
+          git push origin main
