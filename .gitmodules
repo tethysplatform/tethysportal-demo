@@ -35,6 +35,11 @@
 	url = https://github.com/TannerFrandsen/tethysapp-wildatlas.git
     branch = main
 
+[submodule "apps/tethysapp-thredds_tutorial"]
+	path = apps/tethysapp-thredds_tutorial
+	url = https://github.com/tethysplatform/tethysapp-thredds_tutorial.git
+	branch = plot-at-location-solution
+
 [submodule "apps/tethysdash"]
 	path = apps/tethysdash
 	url = https://github.com/tethysplatform/tethysapp-tethys_dash
@@ -70,3 +75,4 @@
 	path = tethysdash_plugins/tethysdash_plugin_ciroh
 	url = https://github.com/FIRO-Tethys/ciroh_plugins
     branch = main
+

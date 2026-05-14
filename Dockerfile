@@ -6,6 +6,9 @@ ENV GS_SERVICE_NAME="geoserver"
 ENV GS_SERVICE_HOST="https://demo.tethysgeoscience.org"
 ENV GS_SERVICE_PORT="8080"
 
+ENV THREDDS_SERVICE_NAME="Global_0p5deg"
+ENV THREDDS_ENDPOINT="https://thredds.ucar.edu/thredds/catalog/grib/NCEP/GFS/Global_0p5deg/"
+
 ENV PERSISTENT_SERVICE_NAME="tethys_postgis"
 
 # Tokens/credentials for demo apps
@@ -70,7 +73,8 @@ RUN cd ${TETHYS_HOME}/apps/tethysapp-flight_tracker/tethysapp-flight_tracker && 
     cd ${TETHYS_HOME}/apps/tethysapp-nyc_car_theft_viewer/tethysapp-nyc_car_theft_viewer && tethys install -w -N -q && \
     cd ${TETHYS_HOME}/apps/tethysapp-population_viewer/tethysapp-population_app && tethys install -w -N -q && \
     cd ${TETHYS_HOME}/apps/tethysapp-wildfire_tracker/tethysapp-wildfire_visualizer && tethys install -w -N -q && \
-    cd ${TETHYS_HOME}/apps/tethysapp-wildatlas/tethysapp-wildatlas && tethys install -w -N -q
+    cd ${TETHYS_HOME}/apps/tethysapp-wildatlas/tethysapp-wildatlas && tethys install -w -N -q && \
+    cd ${TETHYS_HOME}/apps/tethysapp-thredds_tutorial/tethysapp-thredds_tutorial && tethys install -w -N -q
 
 RUN mv ${DEV_REACT_CONFIG} ${PROD_REACT_CONFIG} && \
     sed -i "s#TETHYS_DEBUG_MODE.*#TETHYS_DEBUG_MODE = ${TETHYS_DEBUG_MODE}#g" ${PROD_REACT_CONFIG} && \

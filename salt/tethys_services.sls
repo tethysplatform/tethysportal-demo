@@ -14,6 +14,9 @@
 {% set GEOSERVER_SERVICE_PUBLIC_ENDPOINT = GEOSERVER_SERVICE_HOST + '/geoserver/rest' %}
 {% set GEOSERVER_SERVICE_ENDPOINT = GEOSERVER_SERVICE_USERNAME + ':' + GEOSERVER_SERVICE_PASSWORD + '@' + GEOSERVER_SERVICE_PUBLIC_ENDPOINT %}
 
+{% set THREDDS_SERVICE_NAME = salt['environ.get']('THREDDS_SERVICE_NAME') %}
+{% set THREDDS_ENDPOINT = salt['environ.get']('THREDDS_ENDPOINT') %}
+
 Create_PostGIS_Database_Service:
   cmd.run:
     - name: "tethys services create persistent -n {{ POSTGIS_SERVICE_NAME }} -c {{ POSTGIS_SERVICE_URL }}"
@@ -23,6 +26,12 @@ Create_PostGIS_Database_Service:
 Create_Geoserver_Service:
   cmd.run:
     - name: "tethys services create spatial -n {{ GEOSERVER_SERVICE_NAME}} -t GeoServer -c {{ GEOSERVER_SERVICE_ENDPOINT }} -p {{ GEOSERVER_SERVICE_PUBLIC_ENDPOINT}}"
+    - shell: /bin/bash
+    - unless: /bin/bash -c "[ -f "{{ TETHYS_PERSIST }}/tethys_services_complete" ];"
+
+Create_THREDDS_Service:
+  cmd.run:
+    - name: "tethys services create spatial -t THREDDS -n {{ THREDDS_SERVICE_NAME }} -c {{ THREDDS_ENDPOINT }} -p {{ THREDDS_ENDPOINT }}"
     - shell: /bin/bash
     - unless: /bin/bash -c "[ -f "{{ TETHYS_PERSIST }}/tethys_services_complete" ];"
 
