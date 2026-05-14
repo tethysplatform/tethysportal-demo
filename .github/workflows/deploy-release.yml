@@ -69,7 +69,7 @@ jobs:
             -n demo --create-namespace \
             -f ./tethys-portal/values.yaml \
             --set image.repository=tethysplatform/tethys-demo-portal \
-            --set image.tag=${{ github.event.inputs.image_tag || 'latest' }} \
+            --set image.tag=${{ steps.vars.outputs.tag_name || 'latest' }} \
             --set env.PORTAL_SUPERUSER_NAME="${{ secrets.PORTAL_SUPERUSER_NAME }}" \
             --set env.PORTAL_SUPERUSER_PASSWORD="${{ secrets.PORTAL_SUPERUSER_PASSWORD }}" \
             --set env.TETHYS_DB_USERNAME="${{ secrets.TETHYS_DB_USERNAME }}" \
