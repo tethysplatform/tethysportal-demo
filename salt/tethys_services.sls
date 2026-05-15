@@ -31,7 +31,7 @@ Create_Geoserver_Service:
 
 Create_THREDDS_Service:
   cmd.run:
-    - name: "tethys services create spatial -t THREDDS -n {{ THREDDS_SERVICE_NAME }} -c {{ THREDDS_ENDPOINT }} -p {{ THREDDS_ENDPOINT }}"
+    - name: "tethys services create spatial -t THREDDS -n {{ THREDDS_SERVICE_NAME }} -c a:a@{{ THREDDS_ENDPOINT }} -p {{ THREDDS_ENDPOINT }}"
     - shell: /bin/bash
     - unless: /bin/bash -c "[ -f "{{ TETHYS_PERSIST }}/tethys_services_complete" ];"
 
