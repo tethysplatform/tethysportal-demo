@@ -11,4 +11,9 @@ sodapy
 pyproj
 xmltodict
 requests
+netcdf4
+siphon
+owslib
+chardet
+simplejson
 geoglows>=1.7.0
