@@ -9,6 +9,7 @@ base:
     - flight_tracker
     - wildfire_visualizer
     - wildatlas
+    - thredds_tutorial
     - tethysdash
     - init_app
     - post_app
