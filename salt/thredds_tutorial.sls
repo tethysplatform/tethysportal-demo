@@ -7,8 +7,8 @@ Link_THREDDS_Tutorial_THREDDS_Service:
     - shell: /bin/bash
     - unless: /bin/bash -c "[ -f "{{ TETHYS_PERSIST }}/tethys_dash_setup_complete" ];"
 
-Flag_Tethys_Dash_Setup_Complete:
+Flag_THREDDS_Tutorial_Setup_Complete:
   cmd.run:
-    - name: touch {{ TETHYS_PERSIST }}/tethys_dash_setup_complete
+    - name: touch {{ TETHYS_PERSIST }}/thredds_tutorial_setup_complete
     - shell: /bin/bash
-    - unless: /bin/bash -c "[ -f "{{ TETHYS_PERSIST }}/tethys_dash_setup_complete" ];"
+    - unless: /bin/bash -c "[ -f "{{ TETHYS_PERSIST }}/thredds_tutorial_setup_complete" ];"
