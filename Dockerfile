@@ -75,7 +75,7 @@ RUN cd ${TETHYS_HOME}/apps/tethysapp-flight_tracker/tethysapp-flight_tracker && 
     cd ${TETHYS_HOME}/apps/tethysapp-wildfire_tracker/tethysapp-wildfire_visualizer && tethys install -w -N -q && \
     cd ${TETHYS_HOME}/apps/tethysapp-wildatlas/tethysapp-wildatlas && tethys install -w -N -q && \
     cd ${TETHYS_HOME}/apps/tethysapp-thredds_tutorial && tethys install -w -N -q && \
-    cd ${TETHYS_HOME}/apps/tethysapp-usgs_mrms && tethys install -w -N -q && \
+    cd ${TETHYS_HOME}/apps/tethysapp-usgs_mrms/tethysapp-usgs_mrms && tethys install -w -N -q && \
     cd ${TETHYS_HOME}/apps/tethysapp-Hydro_sync && tethys install -w -N -q
 
 RUN mv ${DEV_REACT_CONFIG} ${PROD_REACT_CONFIG} && \
