@@ -76,3 +76,7 @@
 	url = https://github.com/FIRO-Tethys/ciroh_plugins
     branch = main
 
+[submodule "tethysdash_plugins/tgf_tethysdash_plugins"]
+	path = tethysdash_plugins/tgf_tethysdash_plugins
+	url = https://github.com/ckrew/tgf_tethysdash_plugins.git
+	branch = main

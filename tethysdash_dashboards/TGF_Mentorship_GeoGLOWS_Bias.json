@@ -1,0 +1,377 @@
+{
+  "name": "TGF Mentorship - GeoGLOWS Bias",
+  "description": "Depicts the GeoGLOWS Streamflow Forecast Statistics in the Nepal Region",
+  "publicDashboard": false,
+  "userPermission": "admin",
+  "permissions": [
+    {
+      "username": "admin",
+      "permission": "admin"
+    }
+  ],
+  "unrestrictedPlacement": true,
+  "image": "/media/tethysdash/app/3aa7380a-f43c-4bcf-a02c-b487d7dbd079.png",
+  "owner": "admin",
+  "notes": "",
+  "tabs": [
+    {
+      "id": 165,
+      "name": "Main",
+      "gridItems": [
+        {
+          "i": "1",
+          "x": 0,
+          "y": 0,
+          "w": 59,
+          "h": 46,
+          "source": "Map",
+          "args_string": {
+            "baseMap": "https://server.arcgisonline.com/arcgis/rest/services/World_Topo_Map/MapServer",
+            "layerControl": true,
+            "layers": [
+              {
+                "configuration": {
+                  "type": "ImageLayer",
+                  "props": {
+                    "name": "Nepal GeoGlows",
+                    "source": {
+                      "type": "WMS",
+                      "props": {
+                        "url": "https://tethys.icimod.org:8443//geoserver/ows",
+                        "params": {
+                          "LAYERS": "hydroviewer:nepalriverecmwf"
+                        }
+                      }
+                    }
+                  }
+                },
+                "attributeAliases": {
+                  "nepalriverecmwf": {
+                    "geom": "geom",
+                    "fid": "fid",
+                    "linkno": "linkno",
+                    "dslinkno": "dslinkno",
+                    "strmorder": "strmorder",
+                    "uscontarea": "uscontarea",
+                    "dscontarea": "dscontarea",
+                    "tdxhydrore": "tdxhydrore",
+                    "vpucode": "vpucode",
+                    "topologica": "topologica",
+                    "lengthgeod": "lengthgeod",
+                    "terminalli": "terminalli",
+                    "musk_k": "musk_k",
+                    "musk_x": "musk_x",
+                    "risk": "risk"
+                  }
+                },
+                "omittedPopupAttributes": {
+                  "nepalriverecmwf": [
+                    "geom"
+                  ]
+                },
+                "popupConfig": {
+                  "mode": "modal",
+                  "position": {
+                    "leftPct": 2.75,
+                    "topPct": 25.333333333333332,
+                    "widthPct": 94.25,
+                    "heightPct": 68
+                  },
+                  "titleTemplate": "River: ${feature.linkno}",
+                  "gridItems": [
+                    {
+                      "args_string": "{\"comid\":\"${feature.linkno}\"}",
+                      "h": 20,
+                      "i": "1",
+                      "source": "tgf_geoglows_forecast",
+                      "metadata_string": "{}",
+                      "w": 100,
+                      "x": 0,
+                      "y": 0,
+                      "id": null,
+                      "uuid": "dac70f38-ba11-407f-a782-319c90cd900c"
+                    },
+                    {
+                      "args_string": "{\"comid\":\"${feature.linkno}\"}",
+                      "h": 12,
+                      "i": "2",
+                      "source": "tgf_exceedance_probability",
+                      "metadata_string": "{}",
+                      "w": 100,
+                      "x": 0,
+                      "y": 20,
+                      "id": null,
+                      "uuid": "5f468fcd-0688-4d9b-bfc1-1f3d0ce9e546"
+                    }
+                  ]
+                }
+              },
+              {
+                "configuration": {
+                  "type": "VectorLayer",
+                  "props": {
+                    "name": "Nepal Stations",
+                    "layerId": "8215b5d4-3138-4c79-93be-2dee3a13183b",
+                    "pluginSource": {
+                      "source": "tgf_nepal_performance_layer",
+                      "args": {
+                        "start_date": "${Start Date}",
+                        "end_date": "${End Date}"
+                      }
+                    },
+                    "source": {
+                      "type": "GeoJSON",
+                      "props": {},
+                      "geojson": {
+                        "type": "FeatureCollection",
+                        "features": [],
+                        "crs": {
+                          "type": "name",
+                          "properties": {
+                            "name": "EPSG:4326"
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "style": {
+                    "rules": [
+                      {
+                        "conditionField": "color",
+                        "conditionType": "=",
+                        "conditionValue": "#16a34a",
+                        "geometryType": "point",
+                        "name": "KGE ≥ 0.5 (Good)",
+                        "fill": "#16a34a",
+                        "shape": "circle",
+                        "size": "6"
+                      },
+                      {
+                        "conditionField": "color",
+                        "conditionType": "=",
+                        "conditionValue": "#f59e0b",
+                        "geometryType": "point",
+                        "name": "KGE 0.3–0.5 (Weak)",
+                        "fill": "#f59e0b",
+                        "shape": "circle",
+                        "size": "6"
+                      },
+                      {
+                        "conditionField": "color",
+                        "conditionType": "=",
+                        "conditionValue": "#ef4444",
+                        "geometryType": "point",
+                        "name": "KGE &lt; 0.3 (Poor)",
+                        "fill": "#ef4444",
+                        "shape": "circle",
+                        "size": "6"
+                      },
+                      {
+                        "conditionField": "color",
+                        "conditionType": "=",
+                        "conditionValue": "#aaaaaa",
+                        "geometryType": "point",
+                        "name": "No Data",
+                        "fill": "#aaaaaa",
+                        "shape": "circle",
+                        "size": "6"
+                      }
+                    ],
+                    "default": {
+                      "point": {
+                        "stroke": "#000000",
+                        "strokeWidth": "1"
+                      }
+                    }
+                  }
+                },
+                "attributeAliases": {
+                  "Nepal Stations": {
+                    "samplingFeatureCode": "Station ID",
+                    "uid": "",
+                    "country_id": "",
+                    "samplingFeatureType": "",
+                    "elevationDatum": "",
+                    "matching_column": "",
+                    "matching_column_v2": "",
+                    "GEOGloWS_v2_vpu": "",
+                    "color": "",
+                    "COMID_v2": "",
+                    "description": "",
+                    "siteType": "",
+                    "name": "Station",
+                    "River": "River",
+                    "state": "State",
+                    "elevation_m": "Elevation (m)",
+                    "nse": "NSE",
+                    "kge09": "KGE (2009)",
+                    "kge12": "KGE (2012)",
+                    "rmse": "RMSE (m³/s)",
+                    "mae": "MAE (m³/s)",
+                    "pbias": "PBIAS (%)",
+                    "r2": "R²",
+                    "pearson_r": "Pearson R",
+                    "spearman_r": "Spearman R",
+                    "n_days": "Observation Days"
+                  }
+                },
+                "attributeVariables": {
+                  "Nepal Stations": {
+                    "samplingFeatureCode": "Selected Station"
+                  }
+                },
+                "omittedPopupAttributes": {
+                  "Nepal Stations": [
+                    "uid",
+                    "country_id",
+                    "samplingFeatureType",
+                    "elevationDatum",
+                    "matching_column",
+                    "matching_column_v2",
+                    "GEOGloWS_v2_vpu",
+                    "color",
+                    "COMID_v2",
+                    "description",
+                    "siteType"
+                  ]
+                },
+                "tablePopupType": "hover",
+                "legend": "default",
+                "popupConfig": {
+                  "mode": "modal",
+                  "position": {
+                    "leftPct": 1.25,
+                    "topPct": 25.333333333333336,
+                    "widthPct": 97.5,
+                    "heightPct": 70.22222222222223
+                  },
+                  "titleTemplate": "COMID: ${feature.COMID_v2}; Station ID: ${feature.samplingFeatureCode}",
+                  "gridItems": [
+                    {
+                      "args_string": "{\"comid\":\"${feature.COMID_v2}\",\"station_id\":\"${feature.samplingFeatureCode}\",\"start_date\":\"${Start Date}\",\"end_date\":\"${End Date}\"}",
+                      "h": 13,
+                      "i": "2",
+                      "source": "tgf_hydrograph",
+                      "metadata_string": "{\"border\":{\"border-top\":\"1px solid black\",\"border-bottom\":\"1px solid black\",\"border-left\":\"1px solid black\"}}",
+                      "w": 50,
+                      "x": 0,
+                      "y": 0,
+                      "id": null,
+                      "uuid": "45f3a0fd-2153-4154-9e1e-31c7cbfaedf1"
+                    },
+                    {
+                      "args_string": "{\"comid\":\"${feature.COMID_v2}\",\"station_id\":\"${feature.samplingFeatureCode}\",\"start_date\":\"${Start Date}\",\"end_date\":\"${End Date}\"}",
+                      "h": 13,
+                      "i": "4",
+                      "source": "tgf_scatter_plot",
+                      "metadata_string": "{\"border\":{\"border-left\":\"1px solid black\",\"border-right\":\"1px solid black\"}}",
+                      "w": 50,
+                      "x": 0,
+                      "y": 13,
+                      "id": null,
+                      "uuid": "e0a5d175-b73a-4c0c-996b-cda3ca178e98"
+                    },
+                    {
+                      "args_string": "{\"comid\":\"${feature.COMID_v2}\",\"station_id\":\"${feature.samplingFeatureCode}\",\"start_date\":\"${Start Date}\",\"end_date\":\"${End Date}\"}",
+                      "h": 13,
+                      "i": "5",
+                      "source": "tgf_seasonal_analysis",
+                      "metadata_string": "{\"border\":{\"border-bottom\":\"1px solid black\",\"border-right\":\"1px solid black\"}}",
+                      "w": 50,
+                      "x": 50,
+                      "y": 13,
+                      "id": null,
+                      "uuid": "9c5a9cee-3fe3-4939-90bc-16ec305c3e1e"
+                    },
+                    {
+                      "args_string": "{\"comid\":\"${feature.COMID_v2}\",\"station_id\":\"${feature.samplingFeatureCode}\",\"start_date\":\"${Start Date}\",\"end_date\":\"${End Date}\"}",
+                      "h": 13,
+                      "i": "6",
+                      "source": "tgf_taylor_diagram",
+                      "metadata_string": "{\"border\":{\"border-top\":\"1px solid black\",\"border-bottom\":\"1px solid black\",\"border-left\":\"1px solid black\"}}",
+                      "w": 25,
+                      "x": 50,
+                      "y": 0,
+                      "id": null,
+                      "uuid": "b58e0c67-cab9-40c9-add3-39060c1d02f2"
+                    },
+                    {
+                      "args_string": "{\"comid\":\"${feature.COMID_v2}\",\"station_id\":\"${feature.samplingFeatureCode}\",\"start_date\":\"${Start Date}\",\"end_date\":\"${End Date}\"}",
+                      "h": 13,
+                      "i": "7",
+                      "source": "tgf_metrics_table",
+                      "metadata_string": "{\"border\":{\"border\":\"1px solid black\"}}",
+                      "w": 25,
+                      "x": 75,
+                      "y": 0,
+                      "id": null,
+                      "uuid": "02918a81-9c10-43a2-9a95-36bbf264f0d5"
+                    },
+                    {
+                      "args_string": "{\"comid\":\"${feature.COMID_v2}\",\"station_id\":\"${feature.samplingFeatureCode}\",\"start_date\":\"${Start Date}\",\"end_date\":\"${End Date}\"}",
+                      "h": 13,
+                      "i": "3",
+                      "source": "tgf_residuals",
+                      "metadata_string": "{\"border\":{\"border\":\"1px solid black\"}}",
+                      "w": 50,
+                      "x": 0,
+                      "y": 26,
+                      "id": null,
+                      "uuid": "9e45b80f-7325-454d-9040-92ab609d03e4"
+                    }
+                  ]
+                }
+              }
+            ],
+            "map_extent": {
+              "extent": "9395854.38,3321371.41,7.08"
+            },
+            "mapDrawing": {}
+          },
+          "metadata_string": {}
+        },
+        {
+          "i": "2",
+          "x": 66,
+          "y": 1,
+          "w": 30,
+          "h": 5,
+          "source": "Variable Input",
+          "args_string": {
+            "variable_name": "Date Range",
+            "show_label": true,
+            "variable_options_source": "date-range",
+            "variable_options_source.metadata": {
+              "format": "MM/dd/yyyy'T'HH:mm",
+              "startDateVariable": "Start Date",
+              "endDateVariable": "End Date"
+            },
+            "initial_value": {
+              "Start Date": "01/01/2013 12:00 AM",
+              "End Date": "12/31/2013 12:00 AM"
+            }
+          },
+          "metadata_string": {
+            "border": {
+              "border": "1px solid black"
+            },
+            "backgroundColor": "#ffffff"
+          }
+        },
+        {
+          "i": "3",
+          "x": 59,
+          "y": 6,
+          "w": 41,
+          "h": 40,
+          "source": "tgf_station_performance",
+          "args_string": {
+            "start_date": "${Start Date}",
+            "end_date": "${End Date}"
+          },
+          "metadata_string": {}
+        }
+      ]
+    }
+  ]
+}

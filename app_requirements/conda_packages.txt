@@ -17,3 +17,11 @@ owslib
 chardet
 simplejson
 geoglows>=1.7.0
+numpy
+mercantile
+xarray
+zarr
+boto3
+pyarrow
+gdown
+geoglows

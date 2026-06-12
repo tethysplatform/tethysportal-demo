@@ -88,7 +88,8 @@ RUN cd ${TETHYS_HOME}/tethysdash_plugins/tethysdash_plugin_cnrfc && pip install 
     cd ${TETHYS_HOME}/tethysdash_plugins/tethysdash_plugin_usace && pip install . && \
     cd ${TETHYS_HOME}/tethysdash_plugins/tethysdash_examples && pip install . && \
     cd ${TETHYS_HOME}/tethysdash_plugins/tethysdash_plugin_geoglows && pip install --no-deps . && \
-    cd ${TETHYS_HOME}/tethysdash_plugins/tethysdash_plugin_ciroh && pip install .
+    cd ${TETHYS_HOME}/tethysdash_plugins/tethysdash_plugin_ciroh && pip install . && \
+    cd ${TETHYS_HOME}/tethysdash_plugins/tgf_tethysdash_plugins && pip install .
 
 RUN mkdir -p -m 777 ${TETHYS_PERSIST}/data/tethysdash
 
