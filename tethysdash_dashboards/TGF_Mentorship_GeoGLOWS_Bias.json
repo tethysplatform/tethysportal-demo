@@ -1,17 +1,17 @@
 {
   "name": "TGF Mentorship - GeoGLOWS Bias",
   "description": "Depicts the GeoGLOWS Streamflow Forecast Statistics in the Nepal Region",
-  "publicDashboard": false,
+  "publicDashboard": true,
   "userPermission": "admin",
   "permissions": [
     {
-      "username": "admin",
+      "username": "tethys_admin",
       "permission": "admin"
     }
   ],
-  "unrestrictedPlacement": true,
+  "unrestrictedPlacement": false,
   "image": "/media/tethysdash/app/3aa7380a-f43c-4bcf-a02c-b487d7dbd079.png",
-  "owner": "admin",
+  "owner": "tethys_admin",
   "notes": "",
   "tabs": [
     {
