@@ -1,2 +1,4 @@
 intake
 bokeh_sampledata
+mrms-usgs-events
+reactpy-django
