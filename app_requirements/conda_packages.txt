@@ -1,4 +1,3 @@
-sqlite
 geojson
 numpy
 pandas
@@ -22,4 +21,3 @@ zarr
 boto3
 pyarrow
 gdown
-geoglows
