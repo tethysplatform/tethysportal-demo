@@ -1,4 +1,4 @@
-FROM tethysplatform/tethys-core:4.5.2-py3.13-dj4.2
+FROM tethysplatform/tethys-core:4.5.1-py3.13-dj4.2
 
 ENV GS_USERNAME="admin"
 ENV GS_PASSWORD="geoserver"
