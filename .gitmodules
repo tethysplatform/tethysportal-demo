@@ -45,11 +45,6 @@
 	url = https://github.com/tethysplatform/tethysapp-tethys_dash
 	branch = main
 
-[submodule "apps/tethysapp-usgs_mrms"]
-	path = apps/tethysapp-usgs_mrms
-	url = https://github.com/GonzaloAlbertoForeroBuitrago/usgs_mrms_tethys_app.git
-    branch = main
-
 [submodule "apps/tethysapp-Hydro_sync"]
 	path = apps/tethysapp-Hydro_sync
 	url = https://github.com/Mirembe1/tethysapp-Hydro_sync.git
@@ -91,3 +86,7 @@
 	url = https://github.com/ckrew/tgf_tethysdash_plugins.git
 	branch = main
 
+[submodule "apps/tethysapp-usgs_mrms"]
+	path = apps/tethysapp-usgs_mrms
+	url = https://github.com/jakeymac/usgs_mrms_tethys_app.git
+	branch = main
