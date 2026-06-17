@@ -64,8 +64,8 @@ COPY static/images/* ${TETHYS_HOME}/tethys/tethys_portal/static/tethys_portal/im
 
 ARG MAMBA_DOCKERFILE_ACTIVATE=1
 
-RUN micromamba install --yes -v -c conda-forge --channel-priority strict --file app_requirements/conda_packages.txt && \
-    pip install --no-cache-dir -r app_requirements/pip_package_requirements.txt
+RUN micromamba install --yes -v -c conda-forge --channel-priority strict --file app_requirements/conda_packages.txt
+RUN pip install --no-cache-dir -r app_requirements/pip_package_requirements.txt
 
 RUN cd ${TETHYS_HOME}/apps/tethysapp-flight_tracker/tethysapp-flight_tracker && tethys install -w -N -q && \
     cd ${TETHYS_HOME}/apps/tethysapp-gizmo_showcase && tethys install -w -N -q && \
