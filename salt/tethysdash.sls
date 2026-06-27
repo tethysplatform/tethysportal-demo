@@ -21,7 +21,6 @@ Run_Install_Dashboards_Script:
   cmd.run:
     - name: "cd {{ TETHYS_HOME }}/tethysdash_dashboards && tethys manage shell < install_dashboards.py"
     - shell: /bin/bash
-    - unless: /bin/bash -c "[ -f "{{ TETHYS_PERSIST }}/tethys_dash_setup_complete" ];"
 
 Flag_Tethys_Dash_Setup_Complete:
   cmd.run:
