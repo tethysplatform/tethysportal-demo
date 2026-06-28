@@ -29,6 +29,7 @@ jobs:
         run: |
           docker build -t ${{ env.DOCKER_UPLOAD_URL }}:dev . 
           docker tag ${{ env.DOCKER_UPLOAD_URL }}:dev ${{ env.DOCKER_UPLOAD_URL }}:latest
+          docker tag ${{ env.DOCKER_UPLOAD_URL }}:dev ${{ env.DOCKER_UPLOAD_URL }}:${{ github.sha }}
           docker tag ${{ env.DOCKER_UPLOAD_URL }}:dev ${{ env.TEST_IMAGE }}:dev
 
       - name: Push Docker Images
@@ -37,6 +38,7 @@ jobs:
           echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
           docker push ${{ env.DOCKER_UPLOAD_URL }}:dev
           docker push ${{ env.DOCKER_UPLOAD_URL }}:latest
+          docker push ${{ env.DOCKER_UPLOAD_URL }}:${{ github.sha }}
 
       - name: Skip Push on PRs
         if: ${{ github.event_name == 'pull_request' }}
