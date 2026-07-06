@@ -1,5 +1,7 @@
 FROM tethysplatform/tethys-core:4.5.3-py3.12-dj5.2
 
+SHELL ["/bin/bash", "-euo", "pipefail", "-c"]
+
 ENV GS_USERNAME="admin"
 ENV GS_PASSWORD="geoserver"
 ENV GS_SERVICE_NAME="geoserver"
