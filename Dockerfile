@@ -31,6 +31,7 @@ ENV SECONDARY_COLOR="#95c798"
 ENV COPYRIGHT="Copyright © 2025 Tethys Geoscience Foundation™"
 
 ENV DEFAULT_DASHBOARD_IMAGE_PATH=${TETHYS_HOME}/apps/tethysdash/tethysapp/tethysdash/default_dashboard.png
+ENV SETUPTOOLS_SCM_PRETEND_VERSION_FOR_TETHYSDASH=0.0.1
 
 ARG TETHYS_APP_ROOT_URL="/apps/tethysdash/"
 ARG TETHYS_LOADER_DELAY="500"
