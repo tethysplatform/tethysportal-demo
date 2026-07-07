@@ -100,6 +100,7 @@ RUN cd ${TETHYS_HOME}/tethysdash_plugins/tethysdash_plugin_cnrfc && pip install 
 RUN mkdir -p -m 777 ${TETHYS_PERSIST}/data/tethysdash
 
 RUN chmod -R 777 /opt/conda/envs/tethys/lib/python3.12/site-packages/tethysdash_plugin_geoglows/
+RUN chmod -R 777 /opt/conda/envs/tethys/lib/python3.12/site-packages/ciroh_plugins/
 
 ADD salt /srv/salt
 
