@@ -53,5 +53,13 @@ spec:
               value: {{ .Values.env.PORTAL_SUPERUSER_PASSWORD | quote }}
             - name: TETHYSDASH_DB_NAME
               value: {{ .Values.env.TETHYSDASH_DB_NAME | quote }}
+            - name: USGS_MRMS_AWS_BUCKET_NAME
+              value: {{ .Values.env.USGS_MRMS_AWS_BUCKET_NAME | quote }}
+            - name: USGS_MRMS_AWS_KEY
+              value: {{ .Values.env.USGS_MRMS_AWS_KEY | quote }}
+            - name: USGS_MRMS_AWS_SECRET
+              value: {{ .Values.env.USGS_MRMS_AWS_SECRET | quote }}
+            - name: USGS_MRMS_AWS_REGION
+              value: {{ .Values.env.USGS_MRMS_AWS_REGION | quote }}
 
 

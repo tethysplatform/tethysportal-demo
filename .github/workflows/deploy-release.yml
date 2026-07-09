@@ -74,6 +74,10 @@ jobs:
             --set env.PORTAL_SUPERUSER_PASSWORD="${{ secrets.PORTAL_SUPERUSER_PASSWORD }}" \
             --set env.TETHYS_DB_USERNAME="${{ secrets.TETHYS_DB_USERNAME }}" \
             --set env.TETHYS_DB_PASSWORD="${{ secrets.TETHYS_DB_PASSWORD }}" \
+            --set env.USGS_MRMS_AWS_BUCKET_NAME="${{ secrets.USGS_MRMS_AWS_BUCKET_NAME}}" \
+            --set env.USGS_MRMS_AWS_KEY="${{ secrets.USGS_MRMS_AWS_KEY }}" \
+            --set env.USGS_MRMS_AWS_SECRET="${{ secrets.USGS_MRMS_AWS_SECRET }}" \
+            --set env.USGS_MRMS_AWS_REGION="${{ secrets.USGS_MRMS_AWS_REGION }}" \
             --set tethys.database.tethys_db_username="${{ secrets.TETHYS_DB_USERNAME }}" \
             --set tethys.database.tethys_db_password="${{ secrets.TETHYS_DB_PASSWORD }}" \
             --set postgis.postgres_user="${{ secrets.POSTGRES_USERNAME }}" \
