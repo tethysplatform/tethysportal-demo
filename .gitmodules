@@ -92,3 +92,7 @@
 	branch = main
 
 
+[submodule "tethysdash_plugins/tgf_wmo_plugins"]
+	path = tethysdash_plugins/tgf_wmo_plugins
+	url = https://github.com/FIRO-Tethys/tgf_wmo_plugins.git
+	branch = main
