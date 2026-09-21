@@ -39,19 +39,46 @@ jobs:
             echo "changes=false" >> $GITHUB_OUTPUT
           fi
 
-      - name: Commit updated submodules
+      - name: Commit and push
         if: steps.changes.outputs.changes == 'true'
+        id: commit
         run: |
-          git add .
-          git commit -m "Updated submodules"
-
-      - name: Push changes
-        if: steps.changes.outputs.changes == 'true'
-        run: |
+          git add -A
+          git commit -m "Update submodules"
           git push origin main
+          echo "sha=$(git rev-parse HEAD)" >> $GITHUB_OUTPUT
 
       - name: Trigger Image Build
         if: steps.changes.outputs.changes == 'true'
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: gh workflow run demo-portal.yml --ref main
+        
+      - name: Wait for build
+        if: steps.changes.outputs.changes == 'true'
+        timeout-minutes: 90
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SHA: ${{ steps.commit.outputs.sha }}
+        run: |
+          for i in $(seq 1 18); do
+            RUN_ID=$(gh run list --workflow demo-portal.yml --limit 20 \
+              --json databaseId,headSha,event \
+              --jq "[.[] | select(.headSha==\"$SHA\" and .event==\"workflow_dispatch\")][0].databaseId")
+            [ -n "$RUN_ID" ] && [ "$RUN_ID" != "null" ] && break
+            sleep 10
+          done
+          if [ -z "$RUN_ID" ] || [ "$RUN_ID" = "null" ]; then
+            echo "::error::No build run found for $SHA"
+            exit 1
+          fi
+          echo "Watching build $RUN_ID"
+          gh run watch "$RUN_ID" --exit-status --interval 30
+
+      - name: Deploy
+        if: steps.changes.outputs.changes == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh workflow run "Demo Portal Dev Deploy" --ref main \
+            -f image_tag=${{ steps.commit.outputs.sha }}
