@@ -1,18 +1,22 @@
+{{- if and .Values.persistence.enabled (not .Values.persistence.existingClaim) }}
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: {{ .Values.PersistentVolumeClaim.name }}
+  name: {{ .Values.persistence.claimName }}
   labels:
     app.kubernetes.io/name: {{ include "postgis.name" . }}
     helm.sh/chart: {{ include "postgis.chart" . }}
     app.kubernetes.io/instance: {{ .Release.Name }}
     app.kubernetes.io/managed-by: {{ .Release.Service }}
+  annotations:
+    helm.sh/resource-policy: keep
 spec:
   accessModes:
-    - ReadWriteOnce
-  {{- if .Values.storageClass.storageClassName }}
-  storageClassName: {{ .Values.storageClass.storageClassName | quote }}
-  {{- end }}    
+    - {{ .Values.persistence.accessMode }}
+  {{- with .Values.persistence.storageClassName }}
+  storageClassName: {{ . | quote }}
+  {{- end }}
   resources:
     requests:
-      storage: {{ .Values.storage_size | quote }}
+      storage: {{ .Values.persistence.size | quote }}
+{{- end }}

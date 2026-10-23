@@ -42,8 +42,10 @@ spec:
             {{- toYaml .Values.resources | nindent 12 }}
           volumeMounts:
             - name: postgis-persistent-storage
-              mountPath: '/var/lib/postgresql/data'
-              subPath: postgres  # Needed to prevent pg from freaking out about lost+found folder
+              mountPath: {{ .Values.data.mountPath | quote }}
+              {{- with .Values.data.subPath }}
+              subPath: {{ . }}
+              {{- end }}
       {{- if .Values.init_data.enabled }}
       initContainers:
         - name: init-data
@@ -80,13 +82,19 @@ spec:
               value: {{ .Values.postgres_password | quote }}
           volumeMounts:
             - name: postgis-persistent-storage
-              mountPath: '/var/lib/postgresql/data'
-              subPath: postgres
+              mountPath: {{ .Values.data.mountPath | quote }}
+              {{- with .Values.data.subPath }}
+              subPath: {{ . }}
+              {{- end }}
       {{- end }}
       volumes:
         - name: postgis-persistent-storage
+          {{- if .Values.persistence.enabled }}
           persistentVolumeClaim:
-            claimName: {{ .Values.PersistentVolumeClaim.name }}
+            claimName: {{ .Values.persistence.existingClaim | default .Values.persistence.claimName }}
+          {{- else }}
+          emptyDir: {}
+          {{- end }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}

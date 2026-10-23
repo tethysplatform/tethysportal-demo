@@ -48,11 +48,6 @@ service:
   type: ClusterIP
   port: 5432
 
-storageClass:
-  storageClassName: ''
-
-PersistentVolumeClaim:
-  name: postgis-pv-claim
 
 resources:
   requests:
@@ -62,10 +57,20 @@ resources:
     cpu: 2
     memory: 1Gi
 
-storage_size: 5Gi
-
 nodeSelector: {}
 
 tolerations: []
 
 affinity: {}
+
+persistence:
+  enabled: true
+  existingClaim: ""
+  claimName: postgis-pv-claim
+  storageClassName: ""
+  accessMode: ReadWriteOnce
+  size: 5Gi
+
+data:
+  mountPath: /var/lib/postgresql/data
+  subPath: postgres

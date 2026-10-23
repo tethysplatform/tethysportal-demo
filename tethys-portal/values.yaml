@@ -42,7 +42,10 @@ tethys:
       tethys_db_password: ""
 postgis:
   image:
-    tag: latest
+    tag: "18-3.6"
+  data:
+    mountPath: /var/lib/postgresql
+    subPath: ""
   fullnameOverride: "tethys-postgis"
   postgres_user: ""
   postgres_password: ""
@@ -54,11 +57,10 @@ postgis:
   service:
     type: ClusterIP
     port: 5432
-  storage_size: 1Gi
   persistence:
     enabled: true
     existingClaim: ""  # Leave blank unless you have a predefined one
-    storageClassName: "standard"  # Replace with your cluster's actual storage class
+    storageClassName: "standard-rwo"  # Replace with your cluster's actual storage class
     accessMode: ReadWriteOnce
     size: 1Gi
   resources: 
