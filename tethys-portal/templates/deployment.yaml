@@ -33,7 +33,7 @@ spec:
           startupProbe:
             httpGet:
               path: /
-              port: 80
+              port: 8080
               httpHeaders:
                 - name: Host
                   value: {{ (index .Values.ingress.hosts 0).host | quote }}
@@ -43,7 +43,7 @@ spec:
           livenessProbe:
             httpGet:
               path: /
-              port: 80
+              port: 8080
               httpHeaders:
                 - name: Host
                   value: {{ (index .Values.ingress.hosts 0).host | quote }}
