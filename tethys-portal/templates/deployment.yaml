@@ -39,7 +39,7 @@ spec:
                   value: {{ (index .Values.ingress.hosts 0).host | quote }}
             periodSeconds: 20
             timeoutSeconds: 5
-            failureThreshold: 100
+            failureThreshold: 180
           livenessProbe:
             httpGet:
               path: /
